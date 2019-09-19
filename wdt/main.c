@@ -12,36 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <devices.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <devices.h>
 
-enum _enable
-{
-    DISABLE = 0,
-    ENABLE = 1,
-} ;
+enum _enable {
+  DISABLE = 0,
+  ENABLE = 1,
+};
 
 handle_t wdt0;
 
-int main(void)
-{
-    int timeout = 0;
+int main(void) {
+  int timeout = 0;
 
-    printf("wdt start!\n");
-    wdt0 = io_open("/dev/wdt0");
-    wdt_set_enable(wdt0, DISABLE);
+  printf("wdt start!\n");
+  wdt0 = io_open("/dev/wdt0");
+  wdt_set_enable(wdt0, DISABLE);
 
-    wdt_set_response_mode(wdt0, WDT_RESP_RESET);
-    wdt_set_timeout(wdt0, 6*1e9); //6sec
-    wdt_set_enable(wdt0, ENABLE);
+  wdt_set_response_mode(wdt0, WDT_RESP_RESET);
+  wdt_set_timeout(wdt0, 6 * 1e9);  // 6sec
+  wdt_set_enable(wdt0, ENABLE);
 
-    while(1)
-    {
-        timeout ++;
-        if(timeout < 6)
-            wdt_restart_counter(wdt0);
-        sleep(1);
-    }
+  while (1) {
+    timeout++;
+    if (timeout < 6) wdt_restart_counter(wdt0);
+    sleep(1);
+  }
 }
-

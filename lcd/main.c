@@ -12,23 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <FreeRTOS.h>
 #include <stdio.h>
 #include <string.h>
-#include <FreeRTOS.h>
 #include <task.h>
 #include "lcd.h"
 
 uint32_t lcd_gram[LCD_X_MAX * LCD_Y_MAX / 2] __attribute__((aligned(128)));
 
-int main(void)
-{
-    printf("lcd test\n");
-    lcd_init();
-    memset(lcd_gram, 0xc0, LCD_X_MAX * LCD_Y_MAX * 2);
-    lcd_clear(GREEN);
-    lcd_draw_picture(100, 0, 120, 240, lcd_gram);
-    lcd_draw_string(100, 50, "canaan kendryte",  BLUE);
-    lcd_draw_string(100, 90, "hello AI world", NAVY);
-    while (1)
-        ;
+int main(void) {
+  printf("lcd test\n");
+  lcd_init();
+  memset(lcd_gram, 0xc0, LCD_X_MAX * LCD_Y_MAX * 2);
+  lcd_clear(GREEN);
+  lcd_draw_picture(100, 0, 120, 240, lcd_gram);
+  lcd_draw_string(100, 50, "canaan kendryte", BLUE);
+  lcd_draw_string(100, 90, "hello AI world", NAVY);
+  while (1)
+    ;
 }

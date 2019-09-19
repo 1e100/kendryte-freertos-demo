@@ -12,32 +12,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <devices.h>
+#include <misc/ws2812b/ws2812b.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <devices.h>
 #include <sys/unistd.h>
-#include <misc/ws2812b/ws2812b.h>
 #include "project_cfg.h"
 
 uintptr_t spi1;
 
-int main()
-{
-    spi1 = io_open("/dev/spi1");
-    configASSERT(spi1);
-    
-    handle_t ws2812b = spi_ws2812b_driver_install(spi1, 1);
-    ws2812b_set_rgb_buffer(ws2812b, 0, 0xff);//blue
-    ws2812b_set_rgb(ws2812b);
-    sleep(2);
-    ws2812b_set_rgb_buffer(ws2812b, 0, 0xff00);//red
-    ws2812b_set_rgb(ws2812b);
-    sleep(2);
-    ws2812b_set_rgb_buffer(ws2812b, 0, 0xff0000);//green
-    ws2812b_set_rgb(ws2812b);
-    sleep(2);
-    ws2812b_clear_rgb_buffer(ws2812b);
-    ws2812b_set_rgb(ws2812b);
-    while (1)
-        ;
+int main() {
+  spi1 = io_open("/dev/spi1");
+  configASSERT(spi1);
+
+  handle_t ws2812b = spi_ws2812b_driver_install(spi1, 1);
+  ws2812b_set_rgb_buffer(ws2812b, 0, 0xff);  // blue
+  ws2812b_set_rgb(ws2812b);
+  sleep(2);
+  ws2812b_set_rgb_buffer(ws2812b, 0, 0xff00);  // red
+  ws2812b_set_rgb(ws2812b);
+  sleep(2);
+  ws2812b_set_rgb_buffer(ws2812b, 0, 0xff0000);  // green
+  ws2812b_set_rgb(ws2812b);
+  sleep(2);
+  ws2812b_clear_rgb_buffer(ws2812b);
+  ws2812b_set_rgb(ws2812b);
+  while (1)
+    ;
 }

@@ -12,40 +12,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <stdio.h>
 #include <FreeRTOS.h>
+#include <stdio.h>
 #include <task.h>
 #include "dvp_camera.h"
 #include "lcd.h"
 #include "ov5640.h"
 
-void vTask1()
-{
-    while (1)
-    {
-        while (dvp_finish_flag == 0)
-            ;
-        dvp_finish_flag = 0;
-        lcd_draw_picture(0, 0, 320, 240, gram_mux ? lcd_gram1 : lcd_gram0);
-        gram_mux ^= 0x01;
-    }
+void vTask1() {
+  while (1) {
+    while (dvp_finish_flag == 0)
+      ;
+    dvp_finish_flag = 0;
+    lcd_draw_picture(0, 0, 320, 240, gram_mux ? lcd_gram1 : lcd_gram0);
+    gram_mux ^= 0x01;
+  }
 }
 
-int main(void)
-{
-    printf("lcd init\n");
-    lcd_init();
-    printf("DVP init\n");
-    dvp_init();
-    ov5640_init();
+int main(void) {
+  printf("lcd init\n");
+  lcd_init();
+  printf("DVP init\n");
+  dvp_init();
+  ov5640_init();
 
-    vTaskSuspendAll();
-    xTaskCreate(vTask1, "vTask1", 1024, NULL, 3, NULL);
-    if(!xTaskResumeAll())
-    {
-        taskYIELD();
-    }
+  vTaskSuspendAll();
+  xTaskCreate(vTask1, "vTask1", 1024, NULL, 3, NULL);
+  if (!xTaskResumeAll()) {
+    taskYIELD();
+  }
 
-    while (1)
-        ;
+  while (1)
+    ;
 }

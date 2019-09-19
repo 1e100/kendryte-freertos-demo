@@ -13,18 +13,13 @@
  * limitations under the License.
  */
 
-#include <stdlib.h>
 #include "image_process.h"
+#include <stdlib.h>
 
-int image_init(image_t *image)
-{
-    image->addr = malloc(image->width * image->height * image->pixel);
-    if (image->addr == NULL)
-        return -1;
-    return 0;
+int image_init(image_t* image) {
+  image->addr = malloc(image->width * image->height * image->pixel);
+  if (image->addr == NULL) return -1;
+  return 0;
 }
 
-void image_deinit(image_t *image)
-{
-    free(image->addr);
-}
+void image_deinit(image_t* image) { free(image->addr); }

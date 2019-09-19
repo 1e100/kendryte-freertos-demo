@@ -19,20 +19,17 @@
 
 handle_t uart1;
 
-int main()
-{
-    uint8_t recv = 0;
-    uart1 = io_open("/dev/uart1");
+int main() {
+  uint8_t recv = 0;
+  uart1 = io_open("/dev/uart1");
 
-    uart_config(uart1, 115200, 8, UART_STOP_1, UART_PARITY_NONE);
-    uart_set_read_timeout(uart1, 10*1000);
-    char *hel = {"hello uart!\n"};
-    io_write(uart1, (uint8_t *)hel, strlen(hel));
+  uart_config(uart1, 115200, 8, UART_STOP_1, UART_PARITY_NONE);
+  uart_set_read_timeout(uart1, 10 * 1000);
+  char* hel = {"hello uart!\n"};
+  io_write(uart1, (uint8_t*)hel, strlen(hel));
 
-    while (1)
-    {
-        if(io_read(uart1, &recv, 1) < 0)
-            printf("time out \n");
-        io_write(uart1, &recv, 1);
-    }
+  while (1) {
+    if (io_read(uart1, &recv, 1) < 0) printf("time out \n");
+    io_write(uart1, &recv, 1);
+  }
 }

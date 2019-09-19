@@ -12,14 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include <stdio.h>
 #include <devices.h>
+#include <stdio.h>
 #include <unistd.h>
 
 handle_t rtc0;
 struct tm get_time;
-const struct tm set_time =
-{
+const struct tm set_time = {
     .tm_sec = 59,
     .tm_min = 22,
     .tm_hour = 17,
@@ -31,18 +30,18 @@ const struct tm set_time =
     .tm_isdst = -1,
 };
 
-int main(void)
-{
-    rtc0 = io_open("/dev/rtc0");
-    configASSERT(rtc0);
+int main(void) {
+  rtc0 = io_open("/dev/rtc0");
+  configASSERT(rtc0);
 
-    rtc_set_datetime(rtc0, &set_time);
+  rtc_set_datetime(rtc0, &set_time);
 
-    while(1)
-    {
-        sleep(1);
-        rtc_get_datetime(rtc0, &get_time);
-        printf("%4d-%d-%d %d:%d:%d\n", get_time.tm_year + 1900, get_time.tm_mon + 1, get_time.tm_mday, get_time.tm_hour, get_time.tm_min, get_time.tm_sec);
-    }
-    return 0;
+  while (1) {
+    sleep(1);
+    rtc_get_datetime(rtc0, &get_time);
+    printf("%4d-%d-%d %d:%d:%d\n", get_time.tm_year + 1900, get_time.tm_mon + 1,
+           get_time.tm_mday, get_time.tm_hour, get_time.tm_min,
+           get_time.tm_sec);
+  }
+  return 0;
 }

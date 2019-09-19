@@ -28,32 +28,24 @@
 #define _SPI(x, y) __SPI(x, y)
 #define SPI(x) _SPI(SPI_CHANNEL, x)
 
-#define DCX_IO          (8)
-#define DCX_GPIONUM     (2)
+#define DCX_IO (8)
+#define DCX_GPIONUM (2)
 
-const fpioa_cfg_t g_fpioa_cfg =
-{
+const fpioa_cfg_t g_fpioa_cfg = {
     .version = PIN_CFG_VERSION,
     .functions_count = 11,
-    .functions =
-    {
-        {DCX_IO, FUNC_GPIOHS0 + DCX_GPIONUM},
-        {6, SPI_SS},
-        {7, SPI(SCLK)},
-        {11, FUNC_CMOS_RST},
-        {13, FUNC_CMOS_PWDN},
-        {10, FUNC_SCCB_SCLK},
-        {9, FUNC_SCCB_SDA},
-        {14, FUNC_CMOS_XCLK},
-        {12, FUNC_CMOS_VSYNC},
-        {17, FUNC_CMOS_HREF},
-        {15, FUNC_CMOS_PCLK}
-    }
-};
-const pin_cfg_t g_pin_cfg =
-{
-    .version = PIN_CFG_VERSION,
-    .set_spi0_dvp_data = 1
-};
+    .functions = {{DCX_IO, FUNC_GPIOHS0 + DCX_GPIONUM},
+                  {6, SPI_SS},
+                  {7, SPI(SCLK)},
+                  {11, FUNC_CMOS_RST},
+                  {13, FUNC_CMOS_PWDN},
+                  {10, FUNC_SCCB_SCLK},
+                  {9, FUNC_SCCB_SDA},
+                  {14, FUNC_CMOS_XCLK},
+                  {12, FUNC_CMOS_VSYNC},
+                  {17, FUNC_CMOS_HREF},
+                  {15, FUNC_CMOS_PCLK}}};
+const pin_cfg_t g_pin_cfg = {.version = PIN_CFG_VERSION,
+                             .set_spi0_dvp_data = 1};
 
 #endif

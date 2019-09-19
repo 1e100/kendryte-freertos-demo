@@ -26,39 +26,39 @@
 
 #elif defined(_WIN32)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_win32-inl.inc"
+  "absl/debugging/internal/stacktrace_win32-inl.inc"
 
 #elif defined(__linux__) && !defined(__ANDROID__)
 
 #if !defined(NO_FRAME_POINTER)
-# if defined(__i386__) || defined(__x86_64__)
+#if defined(__i386__) || defined(__x86_64__)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_x86-inl.inc"
-# elif defined(__ppc__) || defined(__PPC__)
+  "absl/debugging/internal/stacktrace_x86-inl.inc"
+#elif defined(__ppc__) || defined(__PPC__)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_powerpc-inl.inc"
-# elif defined(__aarch64__)
+  "absl/debugging/internal/stacktrace_powerpc-inl.inc"
+#elif defined(__aarch64__)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_aarch64-inl.inc"
-# elif defined(__arm__)
+  "absl/debugging/internal/stacktrace_aarch64-inl.inc"
+#elif defined(__arm__)
 // Note: When using glibc this may require -funwind-tables to function properly.
 #define ABSL_STACKTRACE_INL_HEADER \
   "absl/debugging/internal/stacktrace_generic-inl.inc"
-# else
+#else
 #define ABSL_STACKTRACE_INL_HEADER \
-   "absl/debugging/internal/stacktrace_unimplemented-inl.inc"
-# endif
+  "absl/debugging/internal/stacktrace_unimplemented-inl.inc"
+#endif
 #else  // defined(NO_FRAME_POINTER)
-# if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__)
+#if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_generic-inl.inc"
-# elif defined(__ppc__) || defined(__PPC__)
+  "absl/debugging/internal/stacktrace_generic-inl.inc"
+#elif defined(__ppc__) || defined(__PPC__)
 #define ABSL_STACKTRACE_INL_HEADER \
-    "absl/debugging/internal/stacktrace_generic-inl.inc"
-# else
+  "absl/debugging/internal/stacktrace_generic-inl.inc"
+#else
 #define ABSL_STACKTRACE_INL_HEADER \
-   "absl/debugging/internal/stacktrace_unimplemented-inl.inc"
-# endif
+  "absl/debugging/internal/stacktrace_unimplemented-inl.inc"
+#endif
 #endif  // NO_FRAME_POINTER
 
 #else

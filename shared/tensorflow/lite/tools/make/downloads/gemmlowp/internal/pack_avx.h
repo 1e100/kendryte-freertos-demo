@@ -47,8 +47,8 @@ class PackingRegisterBlock<
   static const int kCellDepth = CellFormat::kDepth;
   static const int kCellSize = CellFormat::kSize;
 
-  void Pack(PackedSideBlock<KernelSideFormat> *dst, int start_width) {
-    std::uint8_t *dst_ptr = dst->current_data();
+  void Pack(PackedSideBlock<KernelSideFormat>* dst, int start_width) {
+    std::uint8_t* dst_ptr = dst->current_data();
     const int width_stride = this->complete_src_.width_stride();
     int depth_step = 16;
 
@@ -57,27 +57,27 @@ class PackingRegisterBlock<
          cell_start_depth += depth_step) {
       for (int cell_start_width = 0; cell_start_width < kKernelWidth;
            cell_start_width += kCellWidth) {
-        std::int32_t *cell_sums_of_each_slice_ptr =
+        std::int32_t* cell_sums_of_each_slice_ptr =
             dst->sums_of_each_slice() + start_width + cell_start_width;
-        const std::uint8_t *src_data =
+        const std::uint8_t* src_data =
             this->complete_src_.data(cell_start_width, cell_start_depth);
 
         __m128i xmm1 =
-            _mm_loadu_si128(reinterpret_cast<const __m128i *>(&src_data[0]));
+            _mm_loadu_si128(reinterpret_cast<const __m128i*>(&src_data[0]));
         __m128i xmm2 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[1 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[1 * width_stride]));
         __m128i xmm3 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[2 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[2 * width_stride]));
         __m128i xmm4 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[3 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[3 * width_stride]));
         __m128i xmm5 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[4 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[4 * width_stride]));
         __m128i xmm6 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[5 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[5 * width_stride]));
         __m128i xmm7 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[6 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[6 * width_stride]));
         __m128i xmm8 = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&src_data[7 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[7 * width_stride]));
 
         __m256i ymm1 = _mm256_set_m128i(xmm5, xmm1);
         __m256i ymm2 = _mm256_set_m128i(xmm6, xmm2);
@@ -112,33 +112,29 @@ class PackingRegisterBlock<
         xmm3 = _mm256_extracti128_si256(ymm15, 1);
         xmm4 = _mm256_extracti128_si256(ymm16, 1);
 
-        _mm_storeu_si128(reinterpret_cast<__m128i *>(&dst_ptr[0]), xmm9);
+        _mm_storeu_si128(reinterpret_cast<__m128i*>(&dst_ptr[0]), xmm9);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[kCellSize * kCells]), xmm11);
+            reinterpret_cast<__m128i*>(&dst_ptr[kCellSize * kCells]), xmm11);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[2 * kCellSize * kCells]),
+            reinterpret_cast<__m128i*>(&dst_ptr[2 * kCellSize * kCells]),
             xmm10);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[3 * kCellSize * kCells]),
+            reinterpret_cast<__m128i*>(&dst_ptr[3 * kCellSize * kCells]),
             xmm12);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[4 * kCellSize * kCells]),
-            xmm1);
+            reinterpret_cast<__m128i*>(&dst_ptr[4 * kCellSize * kCells]), xmm1);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[5 * kCellSize * kCells]),
-            xmm3);
+            reinterpret_cast<__m128i*>(&dst_ptr[5 * kCellSize * kCells]), xmm3);
 
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[6 * kCellSize * kCells]),
-            xmm2);
+            reinterpret_cast<__m128i*>(&dst_ptr[6 * kCellSize * kCells]), xmm2);
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&dst_ptr[7 * kCellSize * kCells]),
-            xmm4);
+            reinterpret_cast<__m128i*>(&dst_ptr[7 * kCellSize * kCells]), xmm4);
 
         ymm6 = _mm256_cvtepu8_epi16(xmm9);
         ymm7 = _mm256_madd_epi16(ymm6, one);
         __m256i sums_of_each_slice_xmm = _mm256_loadu_si256(
-            reinterpret_cast<const __m256i *>(&cell_sums_of_each_slice_ptr[0]));
+            reinterpret_cast<const __m256i*>(&cell_sums_of_each_slice_ptr[0]));
         sums_of_each_slice_xmm = _mm256_add_epi32(sums_of_each_slice_xmm, ymm7);
 
         ymm6 = _mm256_cvtepu8_epi16(xmm11);
@@ -170,7 +166,7 @@ class PackingRegisterBlock<
         sums_of_each_slice_xmm = _mm256_add_epi32(sums_of_each_slice_xmm, ymm7);
 
         _mm256_storeu_si256(
-            reinterpret_cast<__m256i *>(&cell_sums_of_each_slice_ptr[0]),
+            reinterpret_cast<__m256i*>(&cell_sums_of_each_slice_ptr[0]),
             sums_of_each_slice_xmm);
         dst_ptr += kCellSize;
       }
@@ -201,8 +197,8 @@ class PackingRegisterBlock<
   static const int kCellDepth = CellFormat::kDepth;
   static const int kCellSize = CellFormat::kSize;
 
-  void Pack(PackedSideBlock<KernelSideFormat> *dst, int start_width) {
-    std::uint8_t *dst_ptr = dst->current_data();
+  void Pack(PackedSideBlock<KernelSideFormat>* dst, int start_width) {
+    std::uint8_t* dst_ptr = dst->current_data();
     const int width_stride = this->complete_src_.width_stride();
     int depth_step = 8;
 
@@ -211,19 +207,19 @@ class PackingRegisterBlock<
          cell_start_depth += depth_step) {
       for (int cell_start_width = 0; cell_start_width < kKernelWidth;
            cell_start_width += kCellWidth) {
-        std::int32_t *cell_sums_of_each_slice_ptr =
+        std::int32_t* cell_sums_of_each_slice_ptr =
             dst->sums_of_each_slice() + start_width + cell_start_width;
-        const std::uint8_t *src_data =
+        const std::uint8_t* src_data =
             this->complete_src_.data(cell_start_width, cell_start_depth);
 
         __m128i xmm1 =
-            _mm_loadl_epi64(reinterpret_cast<const __m128i *>(&src_data[0]));
+            _mm_loadl_epi64(reinterpret_cast<const __m128i*>(&src_data[0]));
         __m128i xmm2 = _mm_loadl_epi64(
-            reinterpret_cast<const __m128i *>(&src_data[1 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[1 * width_stride]));
         __m128i xmm3 = _mm_loadl_epi64(
-            reinterpret_cast<const __m128i *>(&src_data[2 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[2 * width_stride]));
         __m128i xmm4 = _mm_loadl_epi64(
-            reinterpret_cast<const __m128i *>(&src_data[3 * width_stride]));
+            reinterpret_cast<const __m128i*>(&src_data[3 * width_stride]));
 
         __m128i xmm5 = _mm_unpacklo_epi16(xmm1, xmm2);
         __m128i xmm8 = _mm_shuffle_epi32(xmm5, 0x31);
@@ -234,24 +230,24 @@ class PackingRegisterBlock<
         __m128i xmm9 = _mm_blend_epi16(xmm5, xmm7, 0xcc);
         __m128i xmm10 = _mm_blend_epi16(xmm8, xmm6, 0xcc);
 
-        _mm_storel_epi64(reinterpret_cast<__m128i *>(&dst_ptr[0]), xmm9);
+        _mm_storel_epi64(reinterpret_cast<__m128i*>(&dst_ptr[0]), xmm9);
         _mm_storel_epi64(
-            reinterpret_cast<__m128i *>(&dst_ptr[kCellSize * kCells]), xmm10);
+            reinterpret_cast<__m128i*>(&dst_ptr[kCellSize * kCells]), xmm10);
 
         __m128i xmm11 = _mm_shuffle_epi32(xmm9, 0xee);
         __m128i xmm12 = _mm_shuffle_epi32(xmm10, 0xee);
 
         _mm_storel_epi64(
-            reinterpret_cast<__m128i *>(&dst_ptr[2 * kCellSize * kCells]),
+            reinterpret_cast<__m128i*>(&dst_ptr[2 * kCellSize * kCells]),
             xmm11);
         _mm_storel_epi64(
-            reinterpret_cast<__m128i *>(&dst_ptr[3 * kCellSize * kCells]),
+            reinterpret_cast<__m128i*>(&dst_ptr[3 * kCellSize * kCells]),
             xmm12);
 
         xmm1 = _mm_cvtepu8_epi16(xmm9);
         xmm2 = _mm_madd_epi16(xmm1, one);
         __m128i sums_of_each_slice_xmm = _mm_loadu_si128(
-            reinterpret_cast<const __m128i *>(&cell_sums_of_each_slice_ptr[0]));
+            reinterpret_cast<const __m128i*>(&cell_sums_of_each_slice_ptr[0]));
         sums_of_each_slice_xmm = _mm_add_epi32(sums_of_each_slice_xmm, xmm2);
 
         xmm1 = _mm_cvtepu8_epi16(xmm10);
@@ -267,7 +263,7 @@ class PackingRegisterBlock<
         sums_of_each_slice_xmm = _mm_add_epi32(sums_of_each_slice_xmm, xmm2);
 
         _mm_storeu_si128(
-            reinterpret_cast<__m128i *>(&cell_sums_of_each_slice_ptr[0]),
+            reinterpret_cast<__m128i*>(&cell_sums_of_each_slice_ptr[0]),
             sums_of_each_slice_xmm);
         dst_ptr += kCellSize;
       }

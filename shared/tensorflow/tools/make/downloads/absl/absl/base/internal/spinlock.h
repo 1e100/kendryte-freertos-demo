@@ -148,8 +148,10 @@ class LOCKABLE SpinLock {
   enum { kSpinLockCooperative = 2 };
   enum { kSpinLockDisabledScheduling = 4 };
   enum { kSpinLockSleeper = 8 };
-  enum { kWaitTimeMask =                      // Includes kSpinLockSleeper.
-    ~(kSpinLockHeld | kSpinLockCooperative | kSpinLockDisabledScheduling) };
+  enum {
+    kWaitTimeMask =  // Includes kSpinLockSleeper.
+    ~(kSpinLockHeld | kSpinLockCooperative | kSpinLockDisabledScheduling)
+  };
 
   // Returns true if the provided scheduling mode is cooperative.
   static constexpr bool IsCooperative(

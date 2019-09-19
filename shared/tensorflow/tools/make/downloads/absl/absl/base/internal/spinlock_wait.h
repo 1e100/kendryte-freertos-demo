@@ -38,7 +38,7 @@ struct SpinLockWaitTransition {
 // satisfying 0<=i<n && trans[i].done, atomically make the transition,
 // then return the old value of *w.   Make any other atomic transitions
 // where !trans[i].done, but continue waiting.
-uint32_t SpinLockWait(std::atomic<uint32_t> *w, int n,
+uint32_t SpinLockWait(std::atomic<uint32_t>* w, int n,
                       const SpinLockWaitTransition trans[],
                       SchedulingMode scheduling_mode);
 
@@ -46,7 +46,7 @@ uint32_t SpinLockWait(std::atomic<uint32_t> *w, int n,
 // "all" is true, wake all such threads.  This call is a hint, and on some
 // systems it may be a no-op; threads calling SpinLockDelay() will always wake
 // eventually even if SpinLockWake() is never called.
-void SpinLockWake(std::atomic<uint32_t> *w, bool all);
+void SpinLockWake(std::atomic<uint32_t>* w, bool all);
 
 // Wait for an appropriate spin delay on iteration "loop" of a
 // spin loop on location *w, whose previously observed value was "value".
@@ -54,7 +54,7 @@ void SpinLockWake(std::atomic<uint32_t> *w, bool all);
 // or may wait for a delay that can be truncated by a call to SpinLockWake(w).
 // In all cases, it must return in bounded time even if SpinLockWake() is not
 // called.
-void SpinLockDelay(std::atomic<uint32_t> *w, uint32_t value, int loop,
+void SpinLockDelay(std::atomic<uint32_t>* w, uint32_t value, int loop,
                    base_internal::SchedulingMode scheduling_mode);
 
 // Helper used by AbslInternalSpinLockDelay.
@@ -71,19 +71,19 @@ int SpinLockSuggestedDelayNS(int loop);
 // By changing our extension points to be extern "C", we dodge this
 // check.
 extern "C" {
-void AbslInternalSpinLockWake(std::atomic<uint32_t> *w, bool all);
+void AbslInternalSpinLockWake(std::atomic<uint32_t>* w, bool all);
 void AbslInternalSpinLockDelay(
-    std::atomic<uint32_t> *w, uint32_t value, int loop,
+    std::atomic<uint32_t>* w, uint32_t value, int loop,
     absl::base_internal::SchedulingMode scheduling_mode);
 }
 
-inline void absl::base_internal::SpinLockWake(std::atomic<uint32_t> *w,
+inline void absl::base_internal::SpinLockWake(std::atomic<uint32_t>* w,
                                               bool all) {
   AbslInternalSpinLockWake(w, all);
 }
 
 inline void absl::base_internal::SpinLockDelay(
-    std::atomic<uint32_t> *w, uint32_t value, int loop,
+    std::atomic<uint32_t>* w, uint32_t value, int loop,
     absl::base_internal::SchedulingMode scheduling_mode) {
   AbslInternalSpinLockDelay(w, value, loop, scheduling_mode);
 }

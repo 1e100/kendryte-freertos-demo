@@ -49,7 +49,7 @@ class CodeWriter {
   // Associates a key with a value.  All subsequent calls to operator+=, where
   // the specified key is contained in {{ and }} delimiters will be replaced by
   // the given value.
-  void SetValue(const std::string &key, const std::string &value) {
+  void SetValue(const std::string& key, const std::string& value) {
     value_map_[key] = value;
   }
 
@@ -71,12 +71,12 @@ class BaseGenerator {
  public:
   virtual bool generate() = 0;
 
-  static std::string NamespaceDir(const Parser &parser, const std::string &path,
-                                  const Namespace &ns);
+  static std::string NamespaceDir(const Parser& parser, const std::string& path,
+                                  const Namespace& ns);
 
  protected:
-  BaseGenerator(const Parser &parser, const std::string &path,
-                const std::string &file_name,
+  BaseGenerator(const Parser& parser, const std::string& path,
+                const std::string& file_name,
                 const std::string qualifying_start,
                 const std::string qualifying_separator)
       : parser_(parser),
@@ -87,48 +87,48 @@ class BaseGenerator {
   virtual ~BaseGenerator() {}
 
   // No copy/assign.
-  BaseGenerator &operator=(const BaseGenerator &);
-  BaseGenerator(const BaseGenerator &);
+  BaseGenerator& operator=(const BaseGenerator&);
+  BaseGenerator(const BaseGenerator&);
 
-  std::string NamespaceDir(const Namespace &ns) const;
+  std::string NamespaceDir(const Namespace& ns) const;
 
-  static const char *FlatBuffersGeneratedWarning();
+  static const char* FlatBuffersGeneratedWarning();
 
-  static std::string FullNamespace(const char *separator, const Namespace &ns);
+  static std::string FullNamespace(const char* separator, const Namespace& ns);
 
-  static std::string LastNamespacePart(const Namespace &ns);
+  static std::string LastNamespacePart(const Namespace& ns);
 
   // tracks the current namespace for early exit in WrapInNameSpace
   // c++, java and csharp returns a different namespace from
   // the following default (no early exit, always fully qualify),
   // which works for js and php
-  virtual const Namespace *CurrentNameSpace() const { return nullptr; }
+  virtual const Namespace* CurrentNameSpace() const { return nullptr; }
 
   // Ensure that a type is prefixed with its namespace whenever it is used
   // outside of its namespace.
-  std::string WrapInNameSpace(const Namespace *ns,
-                              const std::string &name) const;
+  std::string WrapInNameSpace(const Namespace* ns,
+                              const std::string& name) const;
 
-  std::string WrapInNameSpace(const Definition &def) const;
+  std::string WrapInNameSpace(const Definition& def) const;
 
-  std::string GetNameSpace(const Definition &def) const;
+  std::string GetNameSpace(const Definition& def) const;
 
-  const Parser &parser_;
-  const std::string &path_;
-  const std::string &file_name_;
+  const Parser& parser_;
+  const std::string& path_;
+  const std::string& file_name_;
   const std::string qualifying_start_;
   const std::string qualifying_separator_;
 };
 
 struct CommentConfig {
-  const char *first_line;
-  const char *content_line_prefix;
-  const char *last_line;
+  const char* first_line;
+  const char* content_line_prefix;
+  const char* last_line;
 };
 
-extern void GenComment(const std::vector<std::string> &dc,
-                       std::string *code_ptr, const CommentConfig *config,
-                       const char *prefix = "");
+extern void GenComment(const std::vector<std::string>& dc,
+                       std::string* code_ptr, const CommentConfig* config,
+                       const char* prefix = "");
 
 }  // namespace flatbuffers
 

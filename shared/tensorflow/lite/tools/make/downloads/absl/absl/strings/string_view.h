@@ -258,9 +258,7 @@ class string_view {
   // string_view::size()
   //
   // Returns the number of characters in the `string_view`.
-  constexpr size_type size() const noexcept {
-    return length_;
-  }
+  constexpr size_type size() const noexcept { return length_; }
 
   // string_view::length()
   //
@@ -427,8 +425,7 @@ class string_view {
   // Finds the last occurrence of a substring `s` within the `string_view`,
   // returning the position of the first character's match, or `npos` if no
   // match was found.
-  size_type rfind(string_view s, size_type pos = npos) const
-      noexcept;
+  size_type rfind(string_view s, size_type pos = npos) const noexcept;
 
   // Overload of `string_view::rfind()` for finding the last given character `c`
   // within the `string_view`.
@@ -439,13 +436,11 @@ class string_view {
   // Finds the first occurrence of any of the characters in `s` within the
   // `string_view`, returning the start position of the match, or `npos` if no
   // match was found.
-  size_type find_first_of(string_view s, size_type pos = 0) const
-      noexcept;
+  size_type find_first_of(string_view s, size_type pos = 0) const noexcept;
 
   // Overload of `string_view::find_first_of()` for finding a character `c`
   // within the `string_view`.
-  size_type find_first_of(char c, size_type pos = 0) const
-      noexcept {
+  size_type find_first_of(char c, size_type pos = 0) const noexcept {
     return find(c, pos);
   }
 
@@ -454,13 +449,11 @@ class string_view {
   // Finds the last occurrence of any of the characters in `s` within the
   // `string_view`, returning the start position of the match, or `npos` if no
   // match was found.
-  size_type find_last_of(string_view s, size_type pos = npos) const
-      noexcept;
+  size_type find_last_of(string_view s, size_type pos = npos) const noexcept;
 
   // Overload of `string_view::find_last_of()` for finding a character `c`
   // within the `string_view`.
-  size_type find_last_of(char c, size_type pos = npos) const
-      noexcept {
+  size_type find_last_of(char c, size_type pos = npos) const noexcept {
     return rfind(c, pos);
   }
 
@@ -480,13 +473,12 @@ class string_view {
   // Finds the last occurrence of any of the characters not in `s` within the
   // `string_view`, returning the start position of the last non-match, or
   // `npos` if no non-match was found.
-  size_type find_last_not_of(string_view s,
-                                          size_type pos = npos) const noexcept;
+  size_type find_last_not_of(string_view s, size_type pos = npos) const
+      noexcept;
 
   // Overload of `string_view::find_last_not_of()` for finding a character
   // that is not `c` within the `string_view`.
-  size_type find_last_not_of(char c, size_type pos = npos) const
-      noexcept;
+  size_type find_last_not_of(char c, size_type pos = npos) const noexcept;
 
  private:
   static constexpr size_type kMaxSize =

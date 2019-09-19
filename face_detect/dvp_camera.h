@@ -20,14 +20,13 @@
 #define DVP_WIDTH 320
 #define DVP_HIGHT 240
 
-typedef struct
-{
-    volatile uint8_t dvp_finish_flag;
-    image_t *ai_image;
-    image_t *lcd_image0;
-    image_t *lcd_image1;
-    volatile uint8_t gram_mux;
+typedef struct {
+  volatile uint8_t dvp_finish_flag;
+  image_t* ai_image;
+  image_t* lcd_image0;
+  image_t* lcd_image1;
+  volatile uint8_t gram_mux;
 } camera_context_t;
 
-void dvp_init(camera_context_t *ctx);
+void dvp_init(camera_context_t* ctx);
 #endif

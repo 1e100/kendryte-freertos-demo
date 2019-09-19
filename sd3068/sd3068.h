@@ -21,18 +21,17 @@
 
 #include <stdint.h>
 
-#define SD3068ADDR              0x32
-#define SD3068WIDTH             7
-#define SD3068_USER_RAM_LEN     70
+#define SD3068ADDR 0x32
+#define SD3068WIDTH 7
+#define SD3068_USER_RAM_LEN 70
 
-struct time_t
-{
-    uint32_t year : 6;
-    uint32_t month : 4;
-    uint32_t day : 5;
-    uint32_t hour : 5;
-    uint32_t min : 6;
-    uint32_t sec : 6;
+struct time_t {
+  uint32_t year : 6;
+  uint32_t month : 4;
+  uint32_t day : 5;
+  uint32_t hour : 5;
+  uint32_t min : 6;
+  uint32_t sec : 6;
 } __attribute__((packed, aligned(4)));
 
 void sd3068_init(uintptr_t i2c_dr);

@@ -23,8 +23,8 @@ namespace toco {
 namespace tflite {
 
 // Parse the given string as TF Lite flatbuffer and return a new tf.mini model.
-std::unique_ptr<Model> Import(const ModelFlags &model_flags,
-                              const string &input_file_contents);
+std::unique_ptr<Model> Import(const ModelFlags& model_flags,
+                              const string& input_file_contents);
 
 namespace details {
 
@@ -36,10 +36,10 @@ using TensorsTable = std::vector<string>;
 // as name.
 using OperatorsTable = std::vector<string>;
 
-void LoadTensorsTable(const ::tflite::Model &input_model,
-                      TensorsTable *tensors_table);
-void LoadOperatorsTable(const ::tflite::Model &input_model,
-                        OperatorsTable *operators_table);
+void LoadTensorsTable(const ::tflite::Model& input_model,
+                      TensorsTable* tensors_table);
+void LoadOperatorsTable(const ::tflite::Model& input_model,
+                        OperatorsTable* operators_table);
 
 }  // namespace details
 }  // namespace tflite

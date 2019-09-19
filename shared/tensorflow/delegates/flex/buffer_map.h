@@ -17,8 +17,8 @@ limitations under the License.
 
 #include <map>
 
-#include "tensorflow/lite/c/c_api_internal.h"
 #include "tensorflow/core/framework/tensor.h"
+#include "tensorflow/lite/c/c_api_internal.h"
 
 namespace tflite {
 namespace flex {

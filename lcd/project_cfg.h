@@ -28,24 +28,15 @@
 #define _SPI(x, y) __SPI(x, y)
 #define SPI(x) _SPI(SPI_CHANNEL, x)
 
-#define DCX_IO          (8)
-#define DCX_GPIONUM     (2)
+#define DCX_IO (8)
+#define DCX_GPIONUM (2)
 
-const fpioa_cfg_t g_fpioa_cfg =
-{
+const fpioa_cfg_t g_fpioa_cfg = {
     .version = PIN_CFG_VERSION,
     .functions_count = 3,
-    .functions =
-    {
-        {DCX_IO, FUNC_GPIOHS0 + DCX_GPIONUM},
-        {6, SPI_SS},
-        {7, SPI(SCLK)}
-    }
-};
-const pin_cfg_t g_pin_cfg =
-{
-    .version = PIN_CFG_VERSION,
-    .set_spi0_dvp_data = 1
-};
+    .functions = {
+        {DCX_IO, FUNC_GPIOHS0 + DCX_GPIONUM}, {6, SPI_SS}, {7, SPI(SCLK)}}};
+const pin_cfg_t g_pin_cfg = {.version = PIN_CFG_VERSION,
+                             .set_spi0_dvp_data = 1};
 
 #endif

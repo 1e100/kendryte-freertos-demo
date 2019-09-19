@@ -39,7 +39,6 @@
 
 namespace absl {
 
-
 // uint128
 //
 // An unsigned 128-bit integer type. The API is meant to mimic an intrinsic type
@@ -102,7 +101,7 @@ class
 #ifdef ABSL_HAVE_INTRINSIC_INT128
   constexpr uint128(__int128 v);           // NOLINT(runtime/explicit)
   constexpr uint128(unsigned __int128 v);  // NOLINT(runtime/explicit)
-#endif  // ABSL_HAVE_INTRINSIC_INT128
+#endif                                     // ABSL_HAVE_INTRINSIC_INT128
   explicit uint128(float v);
   explicit uint128(double v);
   explicit uint128(long double v);
@@ -307,9 +306,7 @@ inline uint128& uint128::operator=(unsigned long v) {
 }
 
 // NOLINTNEXTLINE(runtime/int)
-inline uint128& uint128::operator=(long long v) {
-  return *this = uint128(v);
-}
+inline uint128& uint128::operator=(long long v) { return *this = uint128(v); }
 
 // NOLINTNEXTLINE(runtime/int)
 inline uint128& uint128::operator=(unsigned long long v) {
@@ -317,9 +314,7 @@ inline uint128& uint128::operator=(unsigned long long v) {
 }
 
 #ifdef ABSL_HAVE_INTRINSIC_INT128
-inline uint128& uint128::operator=(__int128 v) {
-  return *this = uint128(v);
-}
+inline uint128& uint128::operator=(__int128 v) { return *this = uint128(v); }
 
 inline uint128& uint128::operator=(unsigned __int128 v) {
   return *this = uint128(v);
@@ -379,8 +374,7 @@ constexpr uint64_t Uint128High64(uint128 v) { return v.hi_; }
 
 #if defined(ABSL_IS_LITTLE_ENDIAN)
 
-constexpr uint128::uint128(uint64_t high, uint64_t low)
-    : lo_{low}, hi_{high} {}
+constexpr uint128::uint128(uint64_t high, uint64_t low) : lo_{low}, hi_{high} {}
 
 constexpr uint128::uint128(int v)
     : lo_{static_cast<uint64_t>(v)},
@@ -409,8 +403,7 @@ constexpr uint128::uint128(unsigned __int128 v)
 
 #elif defined(ABSL_IS_BIG_ENDIAN)
 
-constexpr uint128::uint128(uint64_t high, uint64_t low)
-    : hi_{high}, lo_{low} {}
+constexpr uint128::uint128(uint64_t high, uint64_t low) : hi_{high}, lo_{low} {}
 
 constexpr uint128::uint128(int v)
     : hi_{v < 0 ? (std::numeric_limits<uint64_t>::max)() : 0},
@@ -527,9 +520,7 @@ inline bool operator==(uint128 lhs, uint128 rhs) {
           Uint128High64(lhs) == Uint128High64(rhs));
 }
 
-inline bool operator!=(uint128 lhs, uint128 rhs) {
-  return !(lhs == rhs);
-}
+inline bool operator!=(uint128 lhs, uint128 rhs) { return !(lhs == rhs); }
 
 inline bool operator<(uint128 lhs, uint128 rhs) {
   return (Uint128High64(lhs) == Uint128High64(rhs))
@@ -576,17 +567,17 @@ inline uint128 operator~(uint128 val) {
 
 inline uint128 operator|(uint128 lhs, uint128 rhs) {
   return MakeUint128(Uint128High64(lhs) | Uint128High64(rhs),
-                           Uint128Low64(lhs) | Uint128Low64(rhs));
+                     Uint128Low64(lhs) | Uint128Low64(rhs));
 }
 
 inline uint128 operator&(uint128 lhs, uint128 rhs) {
   return MakeUint128(Uint128High64(lhs) & Uint128High64(rhs),
-                           Uint128Low64(lhs) & Uint128Low64(rhs));
+                     Uint128Low64(lhs) & Uint128Low64(rhs));
 }
 
 inline uint128 operator^(uint128 lhs, uint128 rhs) {
   return MakeUint128(Uint128High64(lhs) ^ Uint128High64(rhs),
-                           Uint128Low64(lhs) ^ Uint128Low64(rhs));
+                     Uint128Low64(lhs) ^ Uint128Low64(rhs));
 }
 
 inline uint128& uint128::operator|=(uint128 other) {

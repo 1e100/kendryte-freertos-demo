@@ -22,9 +22,9 @@
 #else
 #include <stdint.h>
 namespace std {
-using ::uint8_t;
 using ::int32_t;
-}
+using ::uint8_t;
+}  // namespace std
 #endif
 
 namespace gemmlowp {
@@ -53,16 +53,16 @@ enum class BitDepthSetting {
 // The main entry point to compute a Gemm. This is the standard
 // EightBitIntGemm interface.
 void EightBitIntGemm(bool transpose_a, bool transpose_b, bool transpose_c,
-                     int m, int n, int k, const std::uint8_t *a,
-                     std::int32_t a_offset, int lda, const std::uint8_t *b,
-                     std::int32_t b_offset, int ldb, std::uint8_t *c,
+                     int m, int n, int k, const std::uint8_t* a,
+                     std::int32_t a_offset, int lda, const std::uint8_t* b,
+                     std::int32_t b_offset, int ldb, std::uint8_t* c,
                      std::int32_t c_offset, std::int32_t c_mult_int,
                      std::int32_t c_shift, int ldc, BitDepthSetting bit_depth);
 
 void EightBitIntGemm(bool transpose_a, bool transpose_b, bool transpose_c,
-                     int m, int n, int k, const std::uint8_t *a,
-                     std::int32_t a_offset, int lda, const std::uint8_t *b,
-                     std::int32_t b_offset, int ldb, float *c, float c_offset,
+                     int m, int n, int k, const std::uint8_t* a,
+                     std::int32_t a_offset, int lda, const std::uint8_t* b,
+                     std::int32_t b_offset, int ldb, float* c, float c_offset,
                      int ldc, BitDepthSetting bit_depth);
 
 // Frees any persistent resources

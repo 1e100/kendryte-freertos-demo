@@ -15,10 +15,10 @@
 #ifndef ABSL_CONTAINER_INTERNAL_UNORDERED_SET_MODIFIERS_TEST_H_
 #define ABSL_CONTAINER_INTERNAL_UNORDERED_SET_MODIFIERS_TEST_H_
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
 #include "absl/container/internal/hash_generator_testing.h"
 #include "absl/container/internal/hash_policy_testing.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 namespace absl {
 namespace container_internal {

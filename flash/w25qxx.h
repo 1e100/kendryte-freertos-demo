@@ -71,16 +71,16 @@
 /**
  * @brief      w25qxx operating status enumerate
  */
-enum w25qxx_status_t
-{
-    W25QXX_OK = 0,
-    W25QXX_BUSY,
-    W25QXX_ERROR,
+enum w25qxx_status_t {
+  W25QXX_OK = 0,
+  W25QXX_BUSY,
+  W25QXX_ERROR,
 };
 
 enum w25qxx_status_t w25qxx_init(uintptr_t spi_in);
-enum w25qxx_status_t w25qxx_write_data(uint32_t addr, uint8_t* data_buf, uint32_t length);
-enum w25qxx_status_t w25qxx_read_data(uint32_t addr, uint8_t* data_buf, uint32_t length);
+enum w25qxx_status_t w25qxx_write_data(uint32_t addr, uint8_t* data_buf,
+                                       uint32_t length);
+enum w25qxx_status_t w25qxx_read_data(uint32_t addr, uint8_t* data_buf,
+                                      uint32_t length);
 
 #endif
-

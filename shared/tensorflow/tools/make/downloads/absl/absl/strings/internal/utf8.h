@@ -39,7 +39,7 @@ namespace strings_internal {
 // characters into buffer, however never will more than kMaxEncodedUTF8Size
 // bytes be written, regardless of the value of utf8_char.
 enum { kMaxEncodedUTF8Size = 4 };
-size_t EncodeUTF8Char(char *buffer, char32_t utf8_char);
+size_t EncodeUTF8Char(char* buffer, char32_t utf8_char);
 
 }  // namespace strings_internal
 }  // namespace absl

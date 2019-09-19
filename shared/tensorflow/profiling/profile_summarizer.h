@@ -18,9 +18,9 @@ limitations under the License.
 
 #include <vector>
 
+#include "tensorflow/core/util/stats_calculator.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/profiling/profiler.h"
-#include "tensorflow/core/util/stats_calculator.h"
 
 namespace tflite {
 namespace profiling {

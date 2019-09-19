@@ -25,9 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/version.h"
 
 namespace tflite {
-namespace label_image {
-
-}  // namespace label_image
+namespace label_image {}  // namespace label_image
 }  // namespace tflite
 
 #endif  // TENSORFLOW_LITE_EXAMPLES_LABEL_IMAGE_BITMAP_HELPERS_IMPL_H_

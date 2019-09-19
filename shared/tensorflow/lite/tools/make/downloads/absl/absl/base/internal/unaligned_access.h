@@ -39,7 +39,7 @@
 // (namespaces, inline) which are absent or incompatible in C.
 #if defined(__cplusplus)
 
-#if defined(ADDRESS_SANITIZER) || defined(THREAD_SANITIZER) ||\
+#if defined(ADDRESS_SANITIZER) || defined(THREAD_SANITIZER) || \
     defined(MEMORY_SANITIZER)
 // Consider we have an unaligned load/store of 4 bytes from address 0x...05.
 // AddressSanitizer will treat it as a 3-byte access to the range 05:07 and
@@ -56,38 +56,38 @@
 #include <stdint.h>
 
 extern "C" {
-uint16_t __sanitizer_unaligned_load16(const void *p);
-uint32_t __sanitizer_unaligned_load32(const void *p);
-uint64_t __sanitizer_unaligned_load64(const void *p);
-void __sanitizer_unaligned_store16(void *p, uint16_t v);
-void __sanitizer_unaligned_store32(void *p, uint32_t v);
-void __sanitizer_unaligned_store64(void *p, uint64_t v);
+uint16_t __sanitizer_unaligned_load16(const void* p);
+uint32_t __sanitizer_unaligned_load32(const void* p);
+uint64_t __sanitizer_unaligned_load64(const void* p);
+void __sanitizer_unaligned_store16(void* p, uint16_t v);
+void __sanitizer_unaligned_store32(void* p, uint32_t v);
+void __sanitizer_unaligned_store64(void* p, uint64_t v);
 }  // extern "C"
 
 namespace absl {
 namespace base_internal {
 
-inline uint16_t UnalignedLoad16(const void *p) {
+inline uint16_t UnalignedLoad16(const void* p) {
   return __sanitizer_unaligned_load16(p);
 }
 
-inline uint32_t UnalignedLoad32(const void *p) {
+inline uint32_t UnalignedLoad32(const void* p) {
   return __sanitizer_unaligned_load32(p);
 }
 
-inline uint64_t UnalignedLoad64(const void *p) {
+inline uint64_t UnalignedLoad64(const void* p) {
   return __sanitizer_unaligned_load64(p);
 }
 
-inline void UnalignedStore16(void *p, uint16_t v) {
+inline void UnalignedStore16(void* p, uint16_t v) {
   __sanitizer_unaligned_store16(p, v);
 }
 
-inline void UnalignedStore32(void *p, uint32_t v) {
+inline void UnalignedStore32(void* p, uint32_t v) {
   __sanitizer_unaligned_store32(p, v);
 }
 
-inline void UnalignedStore64(void *p, uint64_t v) {
+inline void UnalignedStore64(void* p, uint64_t v) {
   __sanitizer_unaligned_store64(p, v);
 }
 
@@ -113,29 +113,29 @@ inline void UnalignedStore64(void *p, uint64_t v) {
 namespace absl {
 namespace base_internal {
 
-inline uint16_t UnalignedLoad16(const void *p) {
+inline uint16_t UnalignedLoad16(const void* p) {
   uint16_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline uint32_t UnalignedLoad32(const void *p) {
+inline uint32_t UnalignedLoad32(const void* p) {
   uint32_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline uint64_t UnalignedLoad64(const void *p) {
+inline uint64_t UnalignedLoad64(const void* p) {
   uint64_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline void UnalignedStore16(void *p, uint16_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore16(void* p, uint16_t v) { memcpy(p, &v, sizeof v); }
 
-inline void UnalignedStore32(void *p, uint32_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore32(void* p, uint32_t v) { memcpy(p, &v, sizeof v); }
 
-inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore64(void* p, uint64_t v) { memcpy(p, &v, sizeof v); }
 
 }  // namespace base_internal
 }  // namespace absl
@@ -163,31 +163,25 @@ inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
 // but note: the FPU still sends unaligned loads and stores to a trap handler!
 
 #define ABSL_INTERNAL_UNALIGNED_LOAD16(_p) \
-  (*reinterpret_cast<const uint16_t *>(_p))
+  (*reinterpret_cast<const uint16_t*>(_p))
 #define ABSL_INTERNAL_UNALIGNED_LOAD32(_p) \
-  (*reinterpret_cast<const uint32_t *>(_p))
+  (*reinterpret_cast<const uint32_t*>(_p))
 #define ABSL_INTERNAL_UNALIGNED_LOAD64(_p) \
-  (*reinterpret_cast<const uint64_t *>(_p))
+  (*reinterpret_cast<const uint64_t*>(_p))
 
 #define ABSL_INTERNAL_UNALIGNED_STORE16(_p, _val) \
-  (*reinterpret_cast<uint16_t *>(_p) = (_val))
+  (*reinterpret_cast<uint16_t*>(_p) = (_val))
 #define ABSL_INTERNAL_UNALIGNED_STORE32(_p, _val) \
-  (*reinterpret_cast<uint32_t *>(_p) = (_val))
+  (*reinterpret_cast<uint32_t*>(_p) = (_val))
 #define ABSL_INTERNAL_UNALIGNED_STORE64(_p, _val) \
-  (*reinterpret_cast<uint64_t *>(_p) = (_val))
+  (*reinterpret_cast<uint64_t*>(_p) = (_val))
 
-#elif defined(__arm__) && \
-      !defined(__ARM_ARCH_5__) && \
-      !defined(__ARM_ARCH_5T__) && \
-      !defined(__ARM_ARCH_5TE__) && \
-      !defined(__ARM_ARCH_5TEJ__) && \
-      !defined(__ARM_ARCH_6__) && \
-      !defined(__ARM_ARCH_6J__) && \
-      !defined(__ARM_ARCH_6K__) && \
-      !defined(__ARM_ARCH_6Z__) && \
-      !defined(__ARM_ARCH_6ZK__) && \
-      !defined(__ARM_ARCH_6T2__)
-
+#elif defined(__arm__) && !defined(__ARM_ARCH_5__) &&          \
+    !defined(__ARM_ARCH_5T__) && !defined(__ARM_ARCH_5TE__) && \
+    !defined(__ARM_ARCH_5TEJ__) && !defined(__ARM_ARCH_6__) && \
+    !defined(__ARM_ARCH_6J__) && !defined(__ARM_ARCH_6K__) &&  \
+    !defined(__ARM_ARCH_6Z__) && !defined(__ARM_ARCH_6ZK__) && \
+    !defined(__ARM_ARCH_6T2__)
 
 // ARMv7 and newer support native unaligned accesses, but only of 16-bit
 // and 32-bit values (not 64-bit); older versions either raise a fatal signal,
@@ -224,30 +218,30 @@ struct Unaligned32Struct {
 }  // namespace base_internal
 }  // namespace absl
 
-#define ABSL_INTERNAL_UNALIGNED_LOAD16(_p)                                  \
-  ((reinterpret_cast<const ::absl::base_internal::Unaligned16Struct *>(_p)) \
+#define ABSL_INTERNAL_UNALIGNED_LOAD16(_p)                                 \
+  ((reinterpret_cast<const ::absl::base_internal::Unaligned16Struct*>(_p)) \
        ->value)
-#define ABSL_INTERNAL_UNALIGNED_LOAD32(_p)                                  \
-  ((reinterpret_cast<const ::absl::base_internal::Unaligned32Struct *>(_p)) \
+#define ABSL_INTERNAL_UNALIGNED_LOAD32(_p)                                 \
+  ((reinterpret_cast<const ::absl::base_internal::Unaligned32Struct*>(_p)) \
        ->value)
 
-#define ABSL_INTERNAL_UNALIGNED_STORE16(_p, _val)                      \
-  ((reinterpret_cast< ::absl::base_internal::Unaligned16Struct *>(_p)) \
-       ->value = (_val))
-#define ABSL_INTERNAL_UNALIGNED_STORE32(_p, _val)                      \
-  ((reinterpret_cast< ::absl::base_internal::Unaligned32Struct *>(_p)) \
-       ->value = (_val))
+#define ABSL_INTERNAL_UNALIGNED_STORE16(_p, _val)                              \
+  ((reinterpret_cast< ::absl::base_internal::Unaligned16Struct*>(_p))->value = \
+       (_val))
+#define ABSL_INTERNAL_UNALIGNED_STORE32(_p, _val)                              \
+  ((reinterpret_cast< ::absl::base_internal::Unaligned32Struct*>(_p))->value = \
+       (_val))
 
 namespace absl {
 namespace base_internal {
 
-inline uint64_t UnalignedLoad64(const void *p) {
+inline uint64_t UnalignedLoad64(const void* p) {
   uint64_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore64(void* p, uint64_t v) { memcpy(p, &v, sizeof v); }
 
 }  // namespace base_internal
 }  // namespace absl
@@ -269,29 +263,29 @@ inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
 namespace absl {
 namespace base_internal {
 
-inline uint16_t UnalignedLoad16(const void *p) {
+inline uint16_t UnalignedLoad16(const void* p) {
   uint16_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline uint32_t UnalignedLoad32(const void *p) {
+inline uint32_t UnalignedLoad32(const void* p) {
   uint32_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline uint64_t UnalignedLoad64(const void *p) {
+inline uint64_t UnalignedLoad64(const void* p) {
   uint64_t t;
   memcpy(&t, p, sizeof t);
   return t;
 }
 
-inline void UnalignedStore16(void *p, uint16_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore16(void* p, uint16_t v) { memcpy(p, &v, sizeof v); }
 
-inline void UnalignedStore32(void *p, uint32_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore32(void* p, uint32_t v) { memcpy(p, &v, sizeof v); }
 
-inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+inline void UnalignedStore64(void* p, uint64_t v) { memcpy(p, &v, sizeof v); }
 
 }  // namespace base_internal
 }  // namespace absl

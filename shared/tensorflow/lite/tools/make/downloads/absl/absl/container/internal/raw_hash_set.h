@@ -446,7 +446,6 @@ struct Group {
 template <class Policy, class Hash, class Eq, class Alloc>
 class raw_hash_set;
 
-
 inline bool IsValidCapacity(size_t n) {
   return ((n + 1) & n) == 0 && n >= Group::kWidth - 1;
 }
@@ -459,8 +458,8 @@ inline bool IsValidCapacity(size_t n) {
 //   DELETED -> EMPTY
 //   EMPTY -> EMPTY
 //   FULL -> DELETED
-inline void ConvertDeletedToEmptyAndFullToDeleted(
-    ctrl_t* ctrl, size_t capacity) {
+inline void ConvertDeletedToEmptyAndFullToDeleted(ctrl_t* ctrl,
+                                                  size_t capacity) {
   assert(ctrl[capacity] == kSentinel);
   assert(IsValidCapacity(capacity));
   for (ctrl_t* pos = ctrl; pos != ctrl + capacity + 1; pos += Group::kWidth) {
@@ -875,7 +874,8 @@ class raw_hash_set {
   // that accept std::initializer_list<T> and std::initializer_list<init_type>.
   // This is advantageous for performance.
   //
-  //   // Turns {"abc", "def"} into std::initializer_list<std::string>, then copies
+  //   // Turns {"abc", "def"} into std::initializer_list<std::string>, then
+  //   copies
   //   // the strings into the set.
   //   std::unordered_set<std::string> s = {"abc", "def"};
   //
@@ -1337,9 +1337,7 @@ class raw_hash_set {
     }
   }
 
-  void reserve(size_t n) {
-    rehash(NumSlotsFast(n));
-  }
+  void reserve(size_t n) { rehash(NumSlotsFast(n)); }
 
   // Extension API: support for heterogeneous keys.
   //
@@ -1839,10 +1837,10 @@ class raw_hash_set {
   // TODO(alkis): Investigate removing some of these fields:
   // - ctrl/slots can be derived from each other
   // - size can be moved into the slot array
-  ctrl_t* ctrl_ = EmptyGroup();    // [(capacity + 1) * ctrl_t]
-  slot_type* slots_ = nullptr;     // [capacity * slot_type]
-  size_t size_ = 0;                // number of full slots
-  size_t capacity_ = 0;            // total number of slots
+  ctrl_t* ctrl_ = EmptyGroup();  // [(capacity + 1) * ctrl_t]
+  slot_type* slots_ = nullptr;   // [capacity * slot_type]
+  size_t size_ = 0;              // number of full slots
+  size_t capacity_ = 0;          // total number of slots
   absl::container_internal::CompressedTuple<size_t /* growth_left */, hasher,
                                             key_equal, allocator_type>
       settings_{0, hasher{}, key_equal{}, allocator_type{}};

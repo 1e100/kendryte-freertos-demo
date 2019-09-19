@@ -66,7 +66,8 @@ class Flag {
  public:
   template <typename T>
   static Flag CreateFlag(const char* name, T* val, const char* usage) {
-    return Flag(name, [val](const T& v) { *val = v; }, *val, usage);
+    return Flag(
+        name, [val](const T& v) { *val = v; }, *val, usage);
   }
 
   Flag(const char* name, const std::function<void(const int32_t&)>& hook,

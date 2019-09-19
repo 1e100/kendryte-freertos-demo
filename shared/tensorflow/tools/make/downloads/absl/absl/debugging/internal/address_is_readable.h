@@ -21,7 +21,7 @@ namespace debugging_internal {
 
 // Return whether the byte at *addr is readable, without faulting.
 // Save and restores errno.
-bool AddressIsReadable(const void *addr);
+bool AddressIsReadable(const void* addr);
 
 }  // namespace debugging_internal
 }  // namespace absl

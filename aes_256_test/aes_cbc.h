@@ -40,19 +40,19 @@
 #if defined(ECB) && (ECB == 1)
 
 void AES_ECB_encrypt(const uint8_t* input, const uint8_t* key, uint8_t* output,
-    const uint32_t length);
+                     const uint32_t length);
 void AES_ECB_decrypt(const uint8_t* input, const uint8_t* key, uint8_t* output,
-    const uint32_t length);
+                     const uint32_t length);
 
-#endif // #if defined(ECB) && (ECB == !)
+#endif  // #if defined(ECB) && (ECB == !)
 
 #if defined(CBC) && (CBC == 1)
 
 void AES_CBC_encrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
-    const uint8_t* key, const uint8_t* iv);
+                            const uint8_t* key, const uint8_t* iv);
 void AES_CBC_decrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
-    const uint8_t* key, const uint8_t* iv);
+                            const uint8_t* key, const uint8_t* iv);
 
-#endif // #if defined(CBC) && (CBC == 1)
+#endif  // #if defined(CBC) && (CBC == 1)
 
-#endif //_AES_H_
+#endif  //_AES_H_

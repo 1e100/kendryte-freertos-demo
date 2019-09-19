@@ -16,19 +16,13 @@
 #define _PROJECT_CFG_H_
 #include <pin_cfg.h>
 
-const fpioa_cfg_t g_fpioa_cfg = 
-{
-    .version = PIN_CFG_VERSION,
-    .functions_count = 6,
-    .functions =
-    {
-        {33, FUNC_I2S2_OUT_D1},
-        {34, FUNC_I2S2_WS},
-        {35, FUNC_I2S2_SCLK},
-        {36, FUNC_I2S0_IN_D0},
-        {37, FUNC_I2S0_WS},
-        {38, FUNC_I2S0_SCLK}
-    }
-};
+const fpioa_cfg_t g_fpioa_cfg = {.version = PIN_CFG_VERSION,
+                                 .functions_count = 6,
+                                 .functions = {{33, FUNC_I2S2_OUT_D1},
+                                               {34, FUNC_I2S2_WS},
+                                               {35, FUNC_I2S2_SCLK},
+                                               {36, FUNC_I2S0_IN_D0},
+                                               {37, FUNC_I2S0_WS},
+                                               {38, FUNC_I2S0_SCLK}}};
 
 #endif

@@ -17,9 +17,9 @@ limitations under the License.
 
 #include <cstring>
 
+#include "tensorflow/core/util/command_line_flags.h"
 #include "tensorflow/lite/testing/split.h"
 #include "tensorflow/lite/testing/tflite_diff_util.h"
-#include "tensorflow/core/util/command_line_flags.h"
 
 namespace tflite {
 namespace testing {

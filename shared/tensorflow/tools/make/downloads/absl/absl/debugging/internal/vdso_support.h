@@ -85,24 +85,24 @@ class VDSOSupport {
   // Returns false if VDSO is not present, or doesn't contain given
   // symbol/version/type combination.
   // If info_out != nullptr, additional details are filled in.
-  bool LookupSymbol(const char *name, const char *version,
-                    int symbol_type, SymbolInfo *info_out) const;
+  bool LookupSymbol(const char* name, const char* version, int symbol_type,
+                    SymbolInfo* info_out) const;
 
   // Find info about symbol (if any) which overlaps given address.
   // Returns true if symbol was found; false if VDSO isn't present
   // or doesn't have a symbol overlapping given address.
   // If info_out != nullptr, additional details are filled in.
-  bool LookupSymbolByAddress(const void *address, SymbolInfo *info_out) const;
+  bool LookupSymbolByAddress(const void* address, SymbolInfo* info_out) const;
 
   // Used only for testing. Replace real VDSO base with a mock.
   // Returns previous value of vdso_base_. After you are done testing,
   // you are expected to call SetBase() with previous value, in order to
   // reset state to the way it was.
-  const void *SetBase(const void *s);
+  const void* SetBase(const void* s);
 
   // Computes vdso_base_ and returns it. Should be called as early as
   // possible; before any thread creation, chroot or setuid.
-  static const void *Init();
+  static const void* Init();
 
  private:
   // image_ represents VDSO ELF image in memory.
@@ -118,18 +118,18 @@ class VDSOSupport {
   // When testing with mock VDSO, low bit is set.
   // The low bit is always available because vdso_base_ is
   // page-aligned.
-  static std::atomic<const void *> vdso_base_;
+  static std::atomic<const void*> vdso_base_;
 
   // NOLINT on 'long' because these routines mimic kernel api.
   // The 'cache' parameter may be used by some versions of the kernel,
   // and should be nullptr or point to a static buffer containing at
   // least two 'long's.
-  static long InitAndGetCPU(unsigned *cpu, void *cache,     // NOLINT 'long'.
-                            void *unused);
-  static long GetCPUViaSyscall(unsigned *cpu, void *cache,  // NOLINT 'long'.
-                               void *unused);
-  typedef long (*GetCpuFn)(unsigned *cpu, void *cache,      // NOLINT 'long'.
-                           void *unused);
+  static long InitAndGetCPU(unsigned* cpu, void* cache,  // NOLINT 'long'.
+                            void* unused);
+  static long GetCPUViaSyscall(unsigned* cpu, void* cache,  // NOLINT 'long'.
+                               void* unused);
+  typedef long (*GetCpuFn)(unsigned* cpu, void* cache,  // NOLINT 'long'.
+                           void* unused);
 
   // This function pointer may point to InitAndGetCPU,
   // GetCPUViaSyscall, or __vdso_getcpu at different stages of initialization.

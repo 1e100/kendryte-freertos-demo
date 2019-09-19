@@ -18,10 +18,10 @@ limitations under the License.
 #include <string>
 #include <vector>
 
-#include "tensorflow/lite/tools/accuracy/ilsvrc/imagenet_topk_eval.h"
-#include "tensorflow/lite/tools/accuracy/utils.h"
 #include "tensorflow/core/framework/tensor_shape.h"
 #include "tensorflow/core/lib/core/status.h"
+#include "tensorflow/lite/tools/accuracy/ilsvrc/imagenet_topk_eval.h"
+#include "tensorflow/lite/tools/accuracy/utils.h"
 
 namespace tensorflow {
 namespace metrics {

@@ -122,7 +122,6 @@ class BigUnsigned {
     }
   }
 
-
   // Multiplies by v in-place.
   void MultiplyBy(uint32_t v) {
     if (size_ == 0 || v == 1) {
@@ -207,8 +206,8 @@ class BigUnsigned {
     return words_[index];
   }
 
-  // Returns this integer as a decimal std::string.  This is not used in the decimal-
-  // to-binary conversion; it is intended to aid in testing.
+  // Returns this integer as a decimal std::string.  This is not used in the
+  // decimal- to-binary conversion; it is intended to aid in testing.
   std::string ToString() const;
 
   int size() const { return size_; }

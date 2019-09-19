@@ -30,8 +30,8 @@
 #ifndef ABSL_CONTAINER_INTERNAL_HASHTABLE_DEBUG_H_
 #define ABSL_CONTAINER_INTERNAL_HASHTABLE_DEBUG_H_
 
-#include <cstddef>
 #include <algorithm>
+#include <cstddef>
 #include <type_traits>
 #include <vector>
 
@@ -45,8 +45,7 @@ namespace container_internal {
 // however, the exact meaning of this number varies according to the container
 // type.
 template <typename C>
-size_t GetHashtableDebugNumProbes(
-    const C& c, const typename C::key_type& key) {
+size_t GetHashtableDebugNumProbes(const C& c, const typename C::key_type& key) {
   return absl::container_internal::hashtable_debug_internal::
       HashtableDebugAccess<C>::GetNumProbes(c, key);
 }

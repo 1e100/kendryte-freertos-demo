@@ -211,7 +211,6 @@ class ParsedFormatBase {
   std::vector<ConversionItem> items_;
 };
 
-
 // A value type representing a preparsed format.  These can be created, copied
 // around, and reused to speed up formatting loops.
 // The user must specify through the template arguments the conversion

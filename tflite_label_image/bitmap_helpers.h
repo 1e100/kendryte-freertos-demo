@@ -21,7 +21,7 @@ limitations under the License.
 namespace tflite {
 namespace label_image {
 
-std::vector<uint8_t> read_bmp(const uint8_t *img_bytes, size_t len, int* width,
+std::vector<uint8_t> read_bmp(const uint8_t* img_bytes, size_t len, int* width,
                               int* height, int* channels, Settings* s);
 
 }  // namespace label_image

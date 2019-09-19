@@ -23,9 +23,9 @@ limitations under the License.
 #include <unordered_set>
 #include <vector>
 
+#include "tensorflow/core/util/stats_calculator.h"
 #include "tensorflow/lite/tools/benchmark/benchmark_params.h"
 #include "tensorflow/lite/tools/benchmark/command_line_flags.h"
-#include "tensorflow/core/util/stats_calculator.h"
 
 namespace tflite {
 namespace benchmark {
@@ -123,8 +123,9 @@ class BenchmarkLoggingListener : public BenchmarkListener {
 template <typename T>
 Flag CreateFlag(const char* name, BenchmarkParams* params,
                 const std::string& usage) {
-  return Flag(name, [params, name](const T& val) { params->Set<T>(name, val); },
-              params->Get<T>(name), usage);
+  return Flag(
+      name, [params, name](const T& val) { params->Set<T>(name, val); },
+      params->Get<T>(name), usage);
 }
 
 // Benchmarks a model.

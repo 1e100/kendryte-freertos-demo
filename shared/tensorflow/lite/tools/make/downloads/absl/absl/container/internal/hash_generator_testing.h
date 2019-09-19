@@ -131,7 +131,7 @@ struct Generator<std::tuple<Ts...>> {
 
 template <class U>
 struct Generator<U, absl::void_t<decltype(std::declval<U&>().key()),
-                                decltype(std::declval<U&>().value())>>
+                                 decltype(std::declval<U&>().value())>>
     : Generator<std::pair<
           typename std::decay<decltype(std::declval<U&>().key())>::type,
           typename std::decay<decltype(std::declval<U&>().value())>::type>> {};

@@ -18,13 +18,13 @@ limitations under the License.
 #include <unordered_map>
 #include <vector>
 
-#include "tensorflow/lite/testing/split.h"
-#include "tensorflow/lite/testing/test_runner.h"
 #include "tensorflow/core/framework/tensor.h"
 #include "tensorflow/core/framework/tensor_shape.h"
 #include "tensorflow/core/framework/types.h"
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/public/session.h"
+#include "tensorflow/lite/testing/split.h"
+#include "tensorflow/lite/testing/test_runner.h"
 
 namespace tflite {
 namespace testing {

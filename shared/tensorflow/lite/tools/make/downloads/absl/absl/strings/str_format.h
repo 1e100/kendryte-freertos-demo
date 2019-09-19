@@ -72,11 +72,11 @@
 #include <cstdio>
 #include <string>
 
-#include "absl/strings/internal/str_format/arg.h"  // IWYU pragma: export
-#include "absl/strings/internal/str_format/bind.h"  // IWYU pragma: export
-#include "absl/strings/internal/str_format/checker.h"  // IWYU pragma: export
+#include "absl/strings/internal/str_format/arg.h"        // IWYU pragma: export
+#include "absl/strings/internal/str_format/bind.h"       // IWYU pragma: export
+#include "absl/strings/internal/str_format/checker.h"    // IWYU pragma: export
 #include "absl/strings/internal/str_format/extension.h"  // IWYU pragma: export
-#include "absl/strings/internal/str_format/parser.h"  // IWYU pragma: export
+#include "absl/strings/internal/str_format/parser.h"     // IWYU pragma: export
 
 namespace absl {
 
@@ -297,7 +297,7 @@ using ParsedFormat = str_format_internal::ExtendedParsedFormat<
 // Returns an empty string in case of error.
 template <typename... Args>
 ABSL_MUST_USE_RESULT std::string StrFormat(const FormatSpec<Args...>& format,
-                                      const Args&... args) {
+                                           const Args&... args) {
   return str_format_internal::FormatPack(
       str_format_internal::UntypedFormatSpecImpl::Extract(format),
       {str_format_internal::FormatArgImpl(args)...});
@@ -314,8 +314,9 @@ ABSL_MUST_USE_RESULT std::string StrFormat(const FormatSpec<Args...>& format,
 //   string orig("For example PI is approximately ");
 //   std::cout << StrAppendFormat(&orig, "%12.6f", 3.14);
 template <typename... Args>
-std::string& StrAppendFormat(std::string* dst, const FormatSpec<Args...>& format,
-                        const Args&... args) {
+std::string& StrAppendFormat(std::string* dst,
+                             const FormatSpec<Args...>& format,
+                             const Args&... args) {
   return str_format_internal::AppendPack(
       dst, str_format_internal::UntypedFormatSpecImpl::Extract(format),
       {str_format_internal::FormatArgImpl(args)...});

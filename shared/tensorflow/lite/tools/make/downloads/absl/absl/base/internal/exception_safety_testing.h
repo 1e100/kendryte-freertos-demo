@@ -26,7 +26,6 @@
 #include <tuple>
 #include <unordered_map>
 
-#include "gtest/gtest.h"
 #include "absl/base/config.h"
 #include "absl/base/internal/pretty_function.h"
 #include "absl/memory/memory.h"
@@ -34,6 +33,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/strings/substitute.h"
 #include "absl/types/optional.h"
+#include "gtest/gtest.h"
 
 namespace testing {
 
@@ -169,8 +169,10 @@ class ConstructorTracker {
     return current_tracker_instance_ != nullptr;
   }
 
-  static std::string ErrorMessage(void* address, const std::string& address_description,
-                             int countdown, const std::string& error_description) {
+  static std::string ErrorMessage(void* address,
+                                  const std::string& address_description,
+                                  int countdown,
+                                  const std::string& error_description) {
     return absl::Substitute(
         "With coundtown at $0:\n"
         "  $1\n"

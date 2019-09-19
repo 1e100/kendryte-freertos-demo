@@ -16,9 +16,8 @@
 #define _PROJECT_CFG_H_
 #include <pin_cfg.h>
 
-#define INT_GPIONUM   7
-const fpioa_cfg_t g_fpioa_cfg = 
-{
+#define INT_GPIONUM 7
+const fpioa_cfg_t g_fpioa_cfg = {
     .version = 1,
     .functions_count = 5,
     .functions[0] = {44, FUNC_SPI0_SS0},
@@ -28,10 +27,7 @@ const fpioa_cfg_t g_fpioa_cfg =
     .functions[4] = {46, FUNC_GPIOHS0 + INT_GPIONUM},
 };
 
-const pin_cfg_t g_pin_cfg =
-{
-    .version = PIN_CFG_VERSION,
-    .set_spi0_dvp_data = 0
-};
+const pin_cfg_t g_pin_cfg = {.version = PIN_CFG_VERSION,
+                             .set_spi0_dvp_data = 0};
 
 #endif

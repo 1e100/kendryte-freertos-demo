@@ -18,10 +18,10 @@
 #include <algorithm>
 #include <vector>
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
 #include "absl/container/internal/hash_generator_testing.h"
 #include "absl/container/internal/hash_policy_testing.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 namespace absl {
 namespace container_internal {
@@ -399,8 +399,8 @@ REGISTER_TYPED_TEST_CASE_P(
     InputIteratorBucketHashAlloc, CopyConstructor, CopyConstructorAlloc,
     MoveConstructor, MoveConstructorAlloc, InitializerListBucketHashEqualAlloc,
     InitializerListBucketAlloc, InitializerListBucketHashAlloc, Assignment,
-    MoveAssignment, AssignmentFromInitializerList,
-    AssignmentOverwritesExisting, MoveAssignmentOverwritesExisting,
+    MoveAssignment, AssignmentFromInitializerList, AssignmentOverwritesExisting,
+    MoveAssignmentOverwritesExisting,
     AssignmentFromInitializerListOverwritesExisting, AssignmentOnSelf);
 
 }  // namespace container_internal

@@ -17,17 +17,15 @@
 
 #include <stdint.h>
 
-typedef struct
-{
-    uint8_t *addr;
-    uint16_t width;
-    uint16_t height;
-    uint16_t pixel;
-    uint16_t format;
+typedef struct {
+  uint8_t* addr;
+  uint16_t width;
+  uint16_t height;
+  uint16_t pixel;
+  uint16_t format;
 } image_t;
 
-
-int image_init(image_t *image);
-void image_deinit(image_t *image);
+int image_init(image_t* image);
+void image_deinit(image_t* image);
 
 #endif /* _IMAGE_PROCESS_H */

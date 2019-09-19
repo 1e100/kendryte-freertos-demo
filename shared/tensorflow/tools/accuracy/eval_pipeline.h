@@ -18,9 +18,9 @@ limitations under the License.
 
 #include <string>
 
+#include "tensorflow/core/public/session.h"
 #include "tensorflow/lite/tools/accuracy/accuracy_eval_stage.h"
 #include "tensorflow/lite/tools/accuracy/stage.h"
-#include "tensorflow/core/public/session.h"
 
 namespace tensorflow {
 namespace metrics {

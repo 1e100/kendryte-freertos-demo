@@ -41,13 +41,13 @@
 #include "absl/base/internal/endian.h"
 #include "absl/base/port.h"
 #include "absl/container/fixed_array.h"
+#include "absl/hash/internal/city.h"
 #include "absl/meta/type_traits.h"
 #include "absl/numeric/int128.h"
 #include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "absl/types/variant.h"
 #include "absl/utility/utility.h"
-#include "absl/hash/internal/city.h"
 
 namespace absl {
 namespace hash_internal {
@@ -546,7 +546,7 @@ hash_range_or_bytes(H hash_state, const T* data, size_t size) {
 // static_assert instead of failing substitution.
 #if defined(_MSC_VER)
 #undef ABSL_HASH_INTERNAL_CAN_POISON_
-#else   // _MSC_VER
+#else  // _MSC_VER
 #define ABSL_HASH_INTERNAL_CAN_POISON_ 1
 #endif  // _MSC_VER
 
@@ -816,7 +816,8 @@ inline uint64_t CityHashState::CombineContiguousImpl(
   // multiplicative hash.
   uint64_t v;
   if (len > 8) {
-    v = absl::hash_internal::CityHash32(reinterpret_cast<const char*>(first), len);
+    v = absl::hash_internal::CityHash32(reinterpret_cast<const char*>(first),
+                                        len);
   } else if (len >= 4) {
     v = Read4To8(first, len);
   } else if (len > 0) {
@@ -836,7 +837,8 @@ inline uint64_t CityHashState::CombineContiguousImpl(
   // multiplicative hash.
   uint64_t v;
   if (len > 16) {
-    v = absl::hash_internal::CityHash64(reinterpret_cast<const char*>(first), len);
+    v = absl::hash_internal::CityHash64(reinterpret_cast<const char*>(first),
+                                        len);
   } else if (len > 8) {
     auto p = Read9To16(first, len);
     state = Mix(state, p.first);
@@ -851,7 +853,6 @@ inline uint64_t CityHashState::CombineContiguousImpl(
   }
   return Mix(state, v);
 }
-
 
 struct AggregateBarrier {};
 

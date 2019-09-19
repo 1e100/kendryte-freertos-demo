@@ -43,9 +43,9 @@ enum CBLAS_TRANSPOSE { CblasNoTrans = 0, CblasTrans = 1, CblasConjTrans = 2 };
 void cblas_sgemm(const enum CBLAS_ORDER order,
                  const enum CBLAS_TRANSPOSE trans_a,
                  const enum CBLAS_TRANSPOSE trans_b, const int m, const int n,
-                 const int k, const float alpha, const float *a,
-                 const int stride_a, const float *b, const int stride_b,
-                 const float beta, float *c, const int stride_c) {
+                 const int k, const float alpha, const float* a,
+                 const int stride_a, const float* b, const int stride_b,
+                 const float beta, float* c, const int stride_c) {
   TFLITE_DCHECK(order == CblasRowMajor);
   TFLITE_DCHECK(trans_a == CblasNoTrans);
   TFLITE_DCHECK(trans_b == CblasTrans);

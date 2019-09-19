@@ -18,6 +18,7 @@
 #include <stdint.h>
 
 int spi_master_init(void);
-int spi_master_transfer(uint8_t *data, uint32_t addr, uint32_t len, uint8_t mode);
+int spi_master_transfer(uint8_t* data, uint32_t addr, uint32_t len,
+                        uint8_t mode);
 
 #endif

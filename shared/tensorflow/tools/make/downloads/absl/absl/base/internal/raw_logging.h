@@ -79,13 +79,13 @@
         absl_raw_logging_internal_basename, __LINE__, message);       \
   } while (0)
 
-#define ABSL_INTERNAL_CHECK(condition, message)               \
-  do {                                                        \
-    if (ABSL_PREDICT_FALSE(!(condition))) {                   \
+#define ABSL_INTERNAL_CHECK(condition, message)                    \
+  do {                                                             \
+    if (ABSL_PREDICT_FALSE(!(condition))) {                        \
       std::string death_message = "Check " #condition " failed: "; \
       death_message += std::string(message);                       \
-      ABSL_INTERNAL_LOG(FATAL, death_message);                \
-    }                                                         \
+      ABSL_INTERNAL_LOG(FATAL, death_message);                     \
+    }                                                              \
   } while (0)
 
 #define ABSL_RAW_LOGGING_INTERNAL_INFO ::absl::LogSeverity::kInfo
@@ -110,7 +110,7 @@ void RawLog(absl::LogSeverity severity, const char* file, int line,
 // In POSIX this means calling write(), which is async-signal safe and does
 // not malloc.  If the platform supports the SYS_write syscall, we invoke that
 // directly to side-step any libc interception.
-void SafeWriteToStderr(const char *s, size_t len);
+void SafeWriteToStderr(const char* s, size_t len);
 
 // compile-time function to get the "base" filename, that is, the part of
 // a filename after the last "/" or "\" path separator.  The search starts at

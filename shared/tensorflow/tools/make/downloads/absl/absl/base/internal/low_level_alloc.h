@@ -58,7 +58,7 @@ namespace base_internal {
 
 class LowLevelAlloc {
  public:
-  struct Arena;       // an arena from which memory may be allocated
+  struct Arena;  // an arena from which memory may be allocated
 
   // Returns a pointer to a block of at least "request" bytes
   // that have been newly allocated from the specific arena.
@@ -66,8 +66,8 @@ class LowLevelAlloc {
   // Returns 0 if passed request==0.
   // Does not return 0 under other circumstances; it crashes if memory
   // is not available.
-  static void *Alloc(size_t request) ABSL_ATTRIBUTE_SECTION(malloc_hook);
-  static void *AllocWithArena(size_t request, Arena *arena)
+  static void* Alloc(size_t request) ABSL_ATTRIBUTE_SECTION(malloc_hook);
+  static void* AllocWithArena(size_t request, Arena* arena)
       ABSL_ATTRIBUTE_SECTION(malloc_hook);
 
   // Deallocates a region of memory that was previously allocated with
@@ -75,7 +75,7 @@ class LowLevelAlloc {
   // or must have been returned from a call to Alloc() and not yet passed to
   // Free() since that call to Alloc().  The space is returned to the arena
   // from which it was allocated.
-  static void Free(void *s) ABSL_ATTRIBUTE_SECTION(malloc_hook);
+  static void Free(void* s) ABSL_ATTRIBUTE_SECTION(malloc_hook);
 
   // ABSL_ATTRIBUTE_SECTION(malloc_hook) for Alloc* and Free
   // are to put all callers of MallocHook::Invoke* in this module
@@ -101,20 +101,20 @@ class LowLevelAlloc {
   // the provided flags.  For example, the call NewArena(kAsyncSignalSafe)
   // is itself async-signal-safe, as well as generatating an arena that provides
   // async-signal-safe Alloc/Free.
-  static Arena *NewArena(int32_t flags);
+  static Arena* NewArena(int32_t flags);
 
   // Destroys an arena allocated by NewArena and returns true,
   // provided no allocated blocks remain in the arena.
   // If allocated blocks remain in the arena, does nothing and
   // returns false.
   // It is illegal to attempt to destroy the DefaultArena().
-  static bool DeleteArena(Arena *arena);
+  static bool DeleteArena(Arena* arena);
 
   // The default arena that always exists.
-  static Arena *DefaultArena();
+  static Arena* DefaultArena();
 
  private:
-  LowLevelAlloc();      // no instances
+  LowLevelAlloc();  // no instances
 };
 
 }  // namespace base_internal

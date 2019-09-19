@@ -15,8 +15,8 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_DELEGATES_FLEX_DELEGATE_DATA_H_
 #define TENSORFLOW_LITE_DELEGATES_FLEX_DELEGATE_DATA_H_
 
-#include "tensorflow/lite/delegates/flex/buffer_map.h"
 #include "tensorflow/core/common_runtime/eager/context.h"
+#include "tensorflow/lite/delegates/flex/buffer_map.h"
 
 namespace tflite {
 namespace flex {

@@ -19,9 +19,9 @@ limitations under the License.
 #include <string>
 #include <vector>
 
-#include "tensorflow/lite/tools/accuracy/accuracy_eval_stage.h"
 #include "tensorflow/core/framework/tensor.h"
 #include "tensorflow/core/platform/mutex.h"
+#include "tensorflow/lite/tools/accuracy/accuracy_eval_stage.h"
 
 namespace tensorflow {
 namespace metrics {

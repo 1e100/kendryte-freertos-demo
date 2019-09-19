@@ -16,14 +16,10 @@
 #define _PROJECT_CFG_H_
 #include <pin_cfg.h>
 
-const fpioa_cfg_t g_fpioa_cfg =
-{
-    .version = PIN_CFG_VERSION,
-    .functions_count = 1,
-    .functions =
-    {
-        {22, FUNC_TIMER0_TOGGLE1},
-    }
-};
+const fpioa_cfg_t g_fpioa_cfg = {.version = PIN_CFG_VERSION,
+                                 .functions_count = 1,
+                                 .functions = {
+                                     {22, FUNC_TIMER0_TOGGLE1},
+                                 }};
 
 #endif

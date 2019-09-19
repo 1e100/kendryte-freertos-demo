@@ -139,18 +139,14 @@ struct Flags {
 
 struct LengthMod {
  public:
-  enum Id : uint8_t {
-    h, hh, l, ll, L, j, z, t, q, none
-  };
+  enum Id : uint8_t { h, hh, l, ll, L, j, z, t, q, none };
   static const size_t kNumValues = none + 1;
 
   LengthMod() : id_(none) {}
 
   // Index into the opaque array of LengthMod enums.
   // Requires: i < kNumValues
-  static LengthMod FromIndex(size_t i) {
-    return LengthMod(kSpecs[i].value);
-  }
+  static LengthMod FromIndex(size_t i) { return LengthMod(kSpecs[i].value); }
 
   static LengthMod FromId(Id id) { return LengthMod(id); }
 
@@ -175,7 +171,7 @@ struct LengthMod {
  private:
   struct Spec {
     Id value;
-    const char *name;
+    const char* name;
     size_t name_length;
   };
   static const Spec kSpecs[];
@@ -202,10 +198,26 @@ struct LengthMod {
 struct ConversionChar {
  public:
   enum Id : uint8_t {
-    c, C, s, S,              // text
-    d, i, o, u, x, X,        // int
-    f, F, e, E, g, G, a, A,  // float
-    n, p,                    // misc
+    c,
+    C,
+    s,
+    S,  // text
+    d,
+    i,
+    o,
+    u,
+    x,
+    X,  // int
+    f,
+    F,
+    e,
+    E,
+    g,
+    G,
+    a,
+    A,  // float
+    n,
+    p,  // misc
     none
   };
   static const size_t kNumValues = none + 1;
@@ -239,39 +251,69 @@ struct ConversionChar {
 
   int radix() const {
     switch (id()) {
-      case x: case X: case a: case A: case p: return 16;
-      case o: return 8;
-      default: return 10;
+      case x:
+      case X:
+      case a:
+      case A:
+      case p:
+        return 16;
+      case o:
+        return 8;
+      default:
+        return 10;
     }
   }
 
   bool upper() const {
     switch (id()) {
-      case X: case F: case E: case G: case A: return true;
-      default: return false;
+      case X:
+      case F:
+      case E:
+      case G:
+      case A:
+        return true;
+      default:
+        return false;
     }
   }
 
   bool is_signed() const {
     switch (id()) {
-      case d: case i: return true;
-      default: return false;
+      case d:
+      case i:
+        return true;
+      default:
+        return false;
     }
   }
 
   bool is_integral() const {
     switch (id()) {
-      case d: case i: case u: case o: case x: case X:
+      case d:
+      case i:
+      case u:
+      case o:
+      case x:
+      case X:
         return true;
-      default: return false;
+      default:
+        return false;
     }
   }
 
   bool is_float() const {
     switch (id()) {
-      case a: case e: case f: case g: case A: case E: case F: case G:
+      case a:
+      case e:
+      case f:
+      case g:
+      case A:
+      case E:
+      case F:
+      case G:
         return true;
-      default: return false;
+      default:
+        return false;
     }
   }
 

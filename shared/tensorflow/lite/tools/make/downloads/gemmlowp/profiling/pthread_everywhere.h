@@ -42,32 +42,32 @@
 #include <mutex>
 #include <thread>
 namespace gemmlowp {
-using pthread_t = std::thread *;
-using pthread_mutex_t = std::mutex *;
-using pthread_cond_t = std::condition_variable *;
-inline void pthread_create(pthread_t *thread, std::nullptr_t,
-                           void *(*start_routine)(void *), void *arg) {
+using pthread_t = std::thread*;
+using pthread_mutex_t = std::mutex*;
+using pthread_cond_t = std::condition_variable*;
+inline void pthread_create(pthread_t* thread, std::nullptr_t,
+                           void* (*start_routine)(void*), void* arg) {
   *thread = new std::thread(start_routine, arg);
 }
 inline void pthread_join(pthread_t thread, std::nullptr_t) { thread->join(); }
-inline void pthread_mutex_init(pthread_mutex_t *mutex, std::nullptr_t) {
+inline void pthread_mutex_init(pthread_mutex_t* mutex, std::nullptr_t) {
   *mutex = new std::mutex;
 }
-inline void pthread_mutex_lock(pthread_mutex_t *mutex) { (*mutex)->lock(); }
-inline void pthread_mutex_unlock(pthread_mutex_t *mutex) { (*mutex)->unlock(); }
-inline void pthread_mutex_destroy(pthread_mutex_t *mutex) { delete *mutex; }
-inline void pthread_cond_init(pthread_cond_t *cond, std::nullptr_t) {
+inline void pthread_mutex_lock(pthread_mutex_t* mutex) { (*mutex)->lock(); }
+inline void pthread_mutex_unlock(pthread_mutex_t* mutex) { (*mutex)->unlock(); }
+inline void pthread_mutex_destroy(pthread_mutex_t* mutex) { delete *mutex; }
+inline void pthread_cond_init(pthread_cond_t* cond, std::nullptr_t) {
   *cond = new std::condition_variable;
 }
-inline void pthread_cond_signal(pthread_cond_t *cond) { (*cond)->notify_one(); }
-inline void pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex) {
+inline void pthread_cond_signal(pthread_cond_t* cond) { (*cond)->notify_one(); }
+inline void pthread_cond_wait(pthread_cond_t* cond, pthread_mutex_t* mutex) {
   std::unique_lock<std::mutex> lock(**mutex, std::adopt_lock);
   (*cond)->wait(lock);
   // detach lock from mutex so when we leave this conext
   // the lock is not released
   lock.release();
 }
-inline void pthread_cond_destroy(pthread_cond_t *cond) { delete *cond; }
+inline void pthread_cond_destroy(pthread_cond_t* cond) { delete *cond; }
 }  // end namespace gemmlowp
 #endif
 

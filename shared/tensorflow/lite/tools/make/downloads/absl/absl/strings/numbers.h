@@ -114,7 +114,7 @@ char* FastIntToBuffer(int_type i, char* buffer) {
   // with enums, and it also serves to check that int_type is not a pointer.
   // If one day something like std::is_signed<enum E> works, switch to it.
   if (static_cast<int_type>(1) - 2 < 0) {  // Signed
-    if (sizeof(i) > 32 / 8) {           // 33-bit to 64-bit
+    if (sizeof(i) > 32 / 8) {              // 33-bit to 64-bit
       return FastIntToBuffer(static_cast<int64_t>(i), buffer);
     } else {  // 32-bit or less
       return FastIntToBuffer(static_cast<int32_t>(i), buffer);
@@ -142,7 +142,7 @@ ABSL_MUST_USE_RESULT bool safe_strtoi_base(absl::string_view s, int_type* out,
   // with enums, and it also serves to check that int_type is not a pointer.
   // If one day something like std::is_signed<enum E> works, switch to it.
   if (static_cast<int_type>(1) - 2 < 0) {  // Signed
-    if (sizeof(*out) == 64 / 8) {       // 64-bit
+    if (sizeof(*out) == 64 / 8) {          // 64-bit
       int64_t val;
       parsed = numbers_internal::safe_strto64_base(s, &val, base);
       *out = static_cast<int_type>(val);

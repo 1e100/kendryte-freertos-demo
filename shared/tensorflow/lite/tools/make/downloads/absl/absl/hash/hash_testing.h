@@ -20,12 +20,12 @@
 #include <type_traits>
 #include <vector>
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
 #include "absl/hash/internal/spy_hash_state.h"
 #include "absl/meta/type_traits.h"
 #include "absl/strings/str_cat.h"
 #include "absl/types/variant.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 namespace absl {
 
@@ -190,7 +190,9 @@ VerifyTypeImplementsAbslHashCorrectly(const Container& values, Eq equals) {
   struct Info {
     const V& value;
     size_t index;
-    std::string ToString() const { return absl::visit(PrintVisitor{index}, value); }
+    std::string ToString() const {
+      return absl::visit(PrintVisitor{index}, value);
+    }
     SpyHashState expand() const { return absl::visit(ExpandVisitor{}, value); }
   };
 

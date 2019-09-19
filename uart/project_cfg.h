@@ -16,15 +16,9 @@
 #define _PROJECT_CFG_H_
 #include <pin_cfg.h>
 
-const fpioa_cfg_t g_fpioa_cfg =
-{
+const fpioa_cfg_t g_fpioa_cfg = {
     .version = PIN_CFG_VERSION,
     .functions_count = 2,
-    .functions =
-    {
-        {30, FUNC_UART1_RX},
-        {31, FUNC_UART1_TX}
-    }
-};
+    .functions = {{30, FUNC_UART1_RX}, {31, FUNC_UART1_TX}}};
 
 #endif

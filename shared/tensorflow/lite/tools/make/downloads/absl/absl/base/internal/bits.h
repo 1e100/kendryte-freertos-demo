@@ -44,7 +44,6 @@
 #define ABSL_BASE_INTERNAL_FORCEINLINE inline ABSL_ATTRIBUTE_ALWAYS_INLINE
 #endif
 
-
 namespace absl {
 namespace base_internal {
 

@@ -173,10 +173,10 @@ enum LinkerInitialized {
 //   #endif // ABSL_BAD_CALL_IF
 
 #if defined(__clang__)
-# if __has_attribute(enable_if)
-#  define ABSL_BAD_CALL_IF(expr, msg) \
-    __attribute__((enable_if(expr, "Bad call trap"), unavailable(msg)))
-# endif
+#if __has_attribute(enable_if)
+#define ABSL_BAD_CALL_IF(expr, msg) \
+  __attribute__((enable_if(expr, "Bad call trap"), unavailable(msg)))
+#endif
 #endif
 
 // ABSL_ASSERT()
@@ -202,11 +202,16 @@ enum LinkerInitialized {
 #ifdef ABSL_HAVE_EXCEPTIONS
 #define ABSL_INTERNAL_TRY try
 #define ABSL_INTERNAL_CATCH_ANY catch (...)
-#define ABSL_INTERNAL_RETHROW do { throw; } while (false)
+#define ABSL_INTERNAL_RETHROW \
+  do {                        \
+    throw;                    \
+  } while (false)
 #else  // ABSL_HAVE_EXCEPTIONS
 #define ABSL_INTERNAL_TRY if (true)
 #define ABSL_INTERNAL_CATCH_ANY else if (false)
-#define ABSL_INTERNAL_RETHROW do {} while (false)
+#define ABSL_INTERNAL_RETHROW \
+  do {                        \
+  } while (false)
 #endif  // ABSL_HAVE_EXCEPTIONS
 
 #endif  // ABSL_BASE_MACROS_H_

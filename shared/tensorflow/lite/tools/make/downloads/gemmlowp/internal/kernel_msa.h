@@ -272,12 +272,12 @@ struct MSA_Kernel12x8Depth2 : KernelBase {
         "st.w   $w19, (1*16)($a0)\n"
         "st.w   $w23, (2*16)($a0)\n"
         :  // outputs
-        [lhs_ptr] "+r"(lhs_ptr), [rhs_ptr] "+r"(rhs_ptr),
-        [run_depth] "+r"(run_depth),
-        [dst_col_stride] "+r"(dst_col_stride)
+        [ lhs_ptr ] "+r"(lhs_ptr), [ rhs_ptr ] "+r"(rhs_ptr),
+        [ run_depth ] "+r"(run_depth),
+        [ dst_col_stride ] "+r"(dst_col_stride)
         :  // inputs
-        [dst_ptr] "r"(dst_ptr),
-        [start_depth] "r"(start_depth)
+        [ dst_ptr ] "r"(dst_ptr),
+        [ start_depth ] "r"(start_depth)
         :  // clobbers
         "memory", "a0", "a1", "$f0", "$f1", "$f2", "$f3", "$f4", "$f5", "$f6",
         "$f7", "$f8", "$f9", "$f10", "$f11", "$f12", "$f13", "$f14", "$f15",

@@ -242,25 +242,25 @@ DereferenceFormatter() {
 
 template <typename Iterator, typename Formatter>
 std::string StrJoin(Iterator start, Iterator end, absl::string_view sep,
-               Formatter&& fmt) {
+                    Formatter&& fmt) {
   return strings_internal::JoinAlgorithm(start, end, sep, fmt);
 }
 
 template <typename Range, typename Formatter>
 std::string StrJoin(const Range& range, absl::string_view separator,
-               Formatter&& fmt) {
+                    Formatter&& fmt) {
   return strings_internal::JoinRange(range, separator, fmt);
 }
 
 template <typename T, typename Formatter>
 std::string StrJoin(std::initializer_list<T> il, absl::string_view separator,
-               Formatter&& fmt) {
+                    Formatter&& fmt) {
   return strings_internal::JoinRange(il, separator, fmt);
 }
 
 template <typename... T, typename Formatter>
 std::string StrJoin(const std::tuple<T...>& value, absl::string_view separator,
-               Formatter&& fmt) {
+                    Formatter&& fmt) {
   return strings_internal::JoinAlgorithm(value, separator, fmt);
 }
 
@@ -280,7 +280,8 @@ std::string StrJoin(std::initializer_list<T> il, absl::string_view separator) {
 }
 
 template <typename... T>
-std::string StrJoin(const std::tuple<T...>& value, absl::string_view separator) {
+std::string StrJoin(const std::tuple<T...>& value,
+                    absl::string_view separator) {
   return strings_internal::JoinAlgorithm(value, separator, AlphaNumFormatter());
 }
 

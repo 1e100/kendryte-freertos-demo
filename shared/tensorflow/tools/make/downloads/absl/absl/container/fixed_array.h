@@ -459,9 +459,7 @@ class FixedArray {
     size_type size() const { return size_alloc_.template get<0>(); }
     StorageElement* begin() const { return data_; }
     StorageElement* end() const { return begin() + size(); }
-    allocator_type& alloc() {
-      return size_alloc_.template get<1>();
-    }
+    allocator_type& alloc() { return size_alloc_.template get<1>(); }
 
    private:
     static bool UsingInlinedStorage(size_type n) {

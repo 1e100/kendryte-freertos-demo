@@ -17,6 +17,6 @@
 
 #include <stdint.h>
 
-int spi_slave_init(uint8_t *data, uint32_t len);
+int spi_slave_init(uint8_t* data, uint32_t len);
 
 #endif

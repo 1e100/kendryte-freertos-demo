@@ -605,9 +605,8 @@ class Time {
   // `absl::TimeZone`.
   //
   // Deprecated. Use `absl::TimeZone::CivilInfo`.
-  struct
-      Breakdown {
-    int64_t year;          // year (e.g., 2013)
+  struct Breakdown {
+    int64_t year;        // year (e.g., 2013)
     int month;           // month of year [1:12]
     int day;             // day of month [1:31]
     int hour;            // hour of day [0:23]
@@ -1080,8 +1079,7 @@ inline Time FromCivil(CivilSecond ct, TimeZone tz) {
 // `absl::ConvertDateTime()`. Lecacy version of `absl::TimeZone::TimeInfo`.
 //
 // Deprecated. Use `absl::TimeZone::TimeInfo`.
-struct
-    TimeConversion {
+struct TimeConversion {
   Time pre;    // time calculated using the pre-transition offset
   Time trans;  // when the civil-time discontinuity occurred
   Time post;   // time calculated using the post-transition offset
@@ -1131,8 +1129,8 @@ TimeConversion ConvertDateTime(int64_t year, int mon, int day, int hour,
 //   // t = 2017-09-26 09:30:00 -0700
 //
 // Deprecated. Use `absl::TimeZone::At(CivilSecond).pre`.
-inline Time FromDateTime(int64_t year, int mon, int day, int hour,
-                         int min, int sec, TimeZone tz) {
+inline Time FromDateTime(int64_t year, int mon, int day, int hour, int min,
+                         int sec, TimeZone tz) {
   return ConvertDateTime(year, mon, day, hour, min, sec, tz).pre;
 }
 
@@ -1393,24 +1391,16 @@ int64_t ToInt64(Duration d, Ratio) {
   return ToInt64Seconds(d * Ratio::den / Ratio::num);
 }
 // Fastpath implementations for the 6 common duration units.
-inline int64_t ToInt64(Duration d, std::nano) {
-  return ToInt64Nanoseconds(d);
-}
+inline int64_t ToInt64(Duration d, std::nano) { return ToInt64Nanoseconds(d); }
 inline int64_t ToInt64(Duration d, std::micro) {
   return ToInt64Microseconds(d);
 }
 inline int64_t ToInt64(Duration d, std::milli) {
   return ToInt64Milliseconds(d);
 }
-inline int64_t ToInt64(Duration d, std::ratio<1>) {
-  return ToInt64Seconds(d);
-}
-inline int64_t ToInt64(Duration d, std::ratio<60>) {
-  return ToInt64Minutes(d);
-}
-inline int64_t ToInt64(Duration d, std::ratio<3600>) {
-  return ToInt64Hours(d);
-}
+inline int64_t ToInt64(Duration d, std::ratio<1>) { return ToInt64Seconds(d); }
+inline int64_t ToInt64(Duration d, std::ratio<60>) { return ToInt64Minutes(d); }
+inline int64_t ToInt64(Duration d, std::ratio<3600>) { return ToInt64Hours(d); }
 
 // Converts an absl::Duration to a chrono duration of type T.
 template <typename T>

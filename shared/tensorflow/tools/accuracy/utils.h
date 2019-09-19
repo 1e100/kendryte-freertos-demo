@@ -19,8 +19,8 @@ limitations under the License.
 #include <string>
 #include <vector>
 
-#include "tensorflow/lite/context.h"
 #include "tensorflow/core/framework/tensor_shape.h"
+#include "tensorflow/lite/context.h"
 
 namespace tensorflow {
 namespace metrics {

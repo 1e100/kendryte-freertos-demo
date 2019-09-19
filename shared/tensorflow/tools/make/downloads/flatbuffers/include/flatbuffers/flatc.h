@@ -22,7 +22,7 @@
 #include "flatbuffers/util.h"
 
 #ifndef FLATC_H_
-#  define FLATC_H_
+#define FLATC_H_
 
 namespace flatbuffers {
 
@@ -31,28 +31,28 @@ class FlatCompiler {
   // Output generator for the various programming languages and formats we
   // support.
   struct Generator {
-    typedef bool (*GenerateFn)(const flatbuffers::Parser &parser,
-                               const std::string &path,
-                               const std::string &file_name);
-    typedef std::string (*MakeRuleFn)(const flatbuffers::Parser &parser,
-                                      const std::string &path,
-                                      const std::string &file_name);
+    typedef bool (*GenerateFn)(const flatbuffers::Parser& parser,
+                               const std::string& path,
+                               const std::string& file_name);
+    typedef std::string (*MakeRuleFn)(const flatbuffers::Parser& parser,
+                                      const std::string& path,
+                                      const std::string& file_name);
 
     GenerateFn generate;
-    const char *generator_opt_short;
-    const char *generator_opt_long;
-    const char *lang_name;
+    const char* generator_opt_short;
+    const char* generator_opt_long;
+    const char* lang_name;
     bool schema_only;
     GenerateFn generateGRPC;
     flatbuffers::IDLOptions::Language lang;
-    const char *generator_help;
+    const char* generator_help;
     MakeRuleFn make_rule;
   };
 
-  typedef void (*WarnFn)(const FlatCompiler *flatc, const std::string &warn,
+  typedef void (*WarnFn)(const FlatCompiler* flatc, const std::string& warn,
                          bool show_exe_name);
 
-  typedef void (*ErrorFn)(const FlatCompiler *flatc, const std::string &err,
+  typedef void (*ErrorFn)(const FlatCompiler* flatc, const std::string& err,
                           bool usage, bool show_exe_name);
 
   // Parameters required to initialize the FlatCompiler.
@@ -63,26 +63,26 @@ class FlatCompiler {
           warn_fn(nullptr),
           error_fn(nullptr) {}
 
-    const Generator *generators;
+    const Generator* generators;
     size_t num_generators;
     WarnFn warn_fn;
     ErrorFn error_fn;
   };
 
-  explicit FlatCompiler(const InitParams &params) : params_(params) {}
+  explicit FlatCompiler(const InitParams& params) : params_(params) {}
 
-  int Compile(int argc, const char **argv);
+  int Compile(int argc, const char** argv);
 
-  std::string GetUsageString(const char *program_name) const;
+  std::string GetUsageString(const char* program_name) const;
 
  private:
-  void ParseFile(flatbuffers::Parser &parser, const std::string &filename,
-                 const std::string &contents,
-                 std::vector<const char *> &include_directories) const;
+  void ParseFile(flatbuffers::Parser& parser, const std::string& filename,
+                 const std::string& contents,
+                 std::vector<const char*>& include_directories) const;
 
-  void Warn(const std::string &warn, bool show_exe_name = true) const;
+  void Warn(const std::string& warn, bool show_exe_name = true) const;
 
-  void Error(const std::string &err, bool usage = true,
+  void Error(const std::string& err, bool usage = true,
              bool show_exe_name = true) const;
 
   InitParams params_;

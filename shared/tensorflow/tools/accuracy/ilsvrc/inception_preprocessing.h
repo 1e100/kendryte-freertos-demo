@@ -18,9 +18,9 @@ limitations under the License.
 
 #include <utility>
 
-#include "tensorflow/lite/tools/accuracy/stage.h"
 #include "tensorflow/core/framework/tensor.h"
 #include "tensorflow/core/lib/core/status.h"
+#include "tensorflow/lite/tools/accuracy/stage.h"
 
 namespace tensorflow {
 namespace metrics {

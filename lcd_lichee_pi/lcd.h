@@ -43,18 +43,17 @@
 #define USER_COLOR  0xAA55
 /* clang-format on */
 
-enum lcd_dir_t
-{
-    DIR_XY_RLUD = 0x00,
-    DIR_YX_RLUD = 0x20,
-    DIR_XY_LRUD = 0x40,
-    DIR_YX_LRUD = 0x60,
-    DIR_XY_RLDU = 0x80,
-    DIR_YX_RLDU = 0xA0,
-    DIR_XY_LRDU = 0xC0,
-    DIR_YX_LRDU = 0xE0,
-    DIR_XY_MASK = 0x20,
-    DIR_MASK = 0xE0,
+enum lcd_dir_t {
+  DIR_XY_RLUD = 0x00,
+  DIR_YX_RLUD = 0x20,
+  DIR_XY_LRUD = 0x40,
+  DIR_YX_LRUD = 0x60,
+  DIR_XY_RLDU = 0x80,
+  DIR_YX_RLDU = 0xA0,
+  DIR_XY_LRDU = 0xC0,
+  DIR_YX_LRDU = 0xE0,
+  DIR_XY_MASK = 0x20,
+  DIR_MASK = 0xE0,
 };
 
 void lcd_init(void);
@@ -63,8 +62,11 @@ void lcd_set_direction(enum lcd_dir_t dir);
 void lcd_set_area(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void lcd_draw_point(uint16_t x, uint16_t y, uint16_t color);
 void lcd_draw_string(uint16_t x, uint16_t y, char* str, uint16_t color);
-void lcd_draw_picture(uint16_t x1, uint16_t y1, uint16_t width, uint16_t height, uint32_t* ptr);
-void lcd_draw_rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t width, uint16_t color);
-void ram_draw_string(char* str, uint32_t* ptr, uint16_t font_color, uint16_t bg_color);
+void lcd_draw_picture(uint16_t x1, uint16_t y1, uint16_t width, uint16_t height,
+                      uint32_t* ptr);
+void lcd_draw_rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2,
+                        uint16_t width, uint16_t color);
+void ram_draw_string(char* str, uint32_t* ptr, uint16_t font_color,
+                     uint16_t bg_color);
 
 #endif

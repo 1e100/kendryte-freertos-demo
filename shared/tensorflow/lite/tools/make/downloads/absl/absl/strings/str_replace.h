@@ -91,7 +91,8 @@ ABSL_MUST_USE_RESULT std::string StrReplaceAll(
 //                                  replacements);
 //   EXPECT_EQ("if (ptr &lt; &amp;foo)", s);
 template <typename StrToStrMapping>
-std::string StrReplaceAll(absl::string_view s, const StrToStrMapping& replacements);
+std::string StrReplaceAll(absl::string_view s,
+                          const StrToStrMapping& replacements);
 
 // Overload of `StrReplaceAll()` to replace character sequences within a given
 // output string *in place* with replacements provided within an initializer
@@ -187,7 +188,8 @@ int ApplySubstitutions(absl::string_view s,
 }  // namespace strings_internal
 
 template <typename StrToStrMapping>
-std::string StrReplaceAll(absl::string_view s, const StrToStrMapping& replacements) {
+std::string StrReplaceAll(absl::string_view s,
+                          const StrToStrMapping& replacements) {
   auto subs = strings_internal::FindSubstitutions(s, replacements);
   std::string result;
   result.reserve(s.size());
